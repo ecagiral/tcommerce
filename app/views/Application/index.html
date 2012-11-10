@@ -2,3 +2,14 @@
 #{set title:'Home' /}
 
 Hosgeldiniz
+
+<div>
+	#{list items:items, as:'element'}
+		<div class = "elementBox" id="${element.displayName}">
+		${element.displayName()}
+		</div>
+		<script>
+			elements["${element.displayName}"]=["${element.min}", "${element.max}"];
+		</script>
+	#{/list}
+</div>
