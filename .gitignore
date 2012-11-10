@@ -3,3 +3,9 @@
 eclipse
 .settings
 tmp
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
