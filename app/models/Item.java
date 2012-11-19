@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -24,14 +23,15 @@ public class Item extends Model{
 	@Required
 	public String picture;
 	
+	
 	@ManyToOne
-	public Customer owner;
+	public User owner;
 	
 	@ManyToMany
 	@Cascade(value={CascadeType.PERSIST,CascadeType.MERGE})
 	public List<SearchKey> searchKey;
 	
-	public Item(String twit, File picture, String key, Customer owner){
+	public Item(String twit, File picture, String key, User owner){
 		this.twit = twit;
 		this.picture = picture.getName();
 		this.owner = owner;

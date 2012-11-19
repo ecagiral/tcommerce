@@ -10,10 +10,11 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class Customer extends Model{
+public class User extends Model{
 	
 	@Required
 	public String username;
+    String screenName;
 	
 	@OneToMany
 	public List<Item> items; 

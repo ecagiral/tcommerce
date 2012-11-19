@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+Add item
+
+<form  action="@{Application.addItem()}" method="post" enctype="multipart/form-data" >
+Resim: <input type="file" name="picture" size="40"><br>
+Twit: <input type="text" name="twit"><br>
+Keys: <input type="text" name="key">
+<input type="submit" name="gonder">
+</form>

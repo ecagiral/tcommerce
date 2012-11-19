@@ -1,12 +1,67 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-Hosgeldiniz
+<script src="@{'/public/javascripts/jquery.imagesloaded.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jquery.masonry.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+	$("ul#topNav li:nth-child(1)").addClass('active');
+</script>
 
-<div>
-	#{list items:items, as:'element'}
-		<div class = "elementBox">${element.twit}</div> 
-	#{/list}
+<div id="productContainer">
+
+#{list items:items, as:'product'}
+    	<div class="productWindow">
+		<div class="productCard"
+			onclick="window.location='@{Application.showItem(product)}'"
+			style='cursor: pointer;'>
+			<div class="productImg">
+				<img src="${product.picture}" alt="foto" />
+			</div>
+
+			<div class="productDetail">
+				${product.twit}
+			</div>
+
+		</div>
+		<div class="clear"></div>
+		<div>
+			<p style="text-align: right; margin-right: 10px;">
+			    %{view = String.valueOf((int)(Math.random() * 100)) }%
+			    %{comment = String.valueOf((int)(Math.random() * 20))}%
+				<span class="comment">${view}</span>
+				<span class="comment">&#8226;</span> <span class="comment">${comment}
+					Yorum</span>
+			</p>
+		</div>
+		<div class="clear"></div>
+		<div class="cardUser"
+			onclick="window.location='<%=request.getContextPath()+"/user.jsp?user="+product.getAnnouncerId()%>'"
+			style='cursor: pointer;'>
+			<div>
+			<img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.username}</span>
+			</div>
+			%{ like = (int)(Math.random() * 30); }%
+			%{ trust = 100 - like}%
+			<div>
+				<p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">Satõcõ GŸveni ${trust}%</span></p>
+			</div>
+			<div class="video-extras-sparkbars" style="margin-bottom: 2px;">
+				<div class="video-extras-sparkbar-likes"
+					style="width: ${100 - like}%"></div>
+				<div class="video-extras-sparkbar-dislikes"
+					style="width: ${like}%"></div>
+			</div>
+		</div>
+	</div>
+#{/list}
 </div>
-
-<a href="@{Application.itemAdd()}">add item</a>
+<div class="clear"></div>
+<script type="text/javascript">
+	var $container = $('#productContainer');
+	$container.imagesLoaded(function() {
+		$container.masonry({
+			itemSelector : '.productWindow',
+			columnWidth : 270
+		});
+	});
+</script>
