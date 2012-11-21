@@ -23,7 +23,6 @@ public class Item extends Model{
 	@Required
 	public String picture;
 	
-	
 	@ManyToOne
 	public User owner;
 	

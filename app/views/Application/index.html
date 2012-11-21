@@ -38,7 +38,7 @@
 			onclick="window.location='<%=request.getContextPath()+"/user.jsp?user="+product.getAnnouncerId()%>'"
 			style='cursor: pointer;'>
 			<div>
-			<img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.username}</span>
+			<img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
 			</div>
 			%{ like = (int)(Math.random() * 30); }%
 			%{ trust = 100 - like}%

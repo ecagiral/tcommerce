@@ -1,0 +1,21 @@
+User(engin):
+    screenName: eguller
+    authToken: egullerToken
+    authTokenSecret: egullerTokenSecret
+    picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
+
+User(erman):
+    screenName: ErmanCagiral
+    authToken: ermanToken
+    authTokenSecret: ermanTokenSecret
+    picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
+
+Item(item1):
+    twit: Selling bike
+    picture: http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg
+    owner: [erman]
+    
+Item(item2):
+    twit: I am selling my guitar
+    picture: http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg
+    owner: [engin]

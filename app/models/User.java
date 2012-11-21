@@ -13,8 +13,10 @@ import play.db.jpa.Model;
 public class User extends Model{
 	
 	@Required
-	public String username;
     String screenName;
+	String authToken;
+	String authTokenSecret;
+	String picture;
 	
 	@OneToMany
 	public List<Item> items; 
