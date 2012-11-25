@@ -10,6 +10,7 @@ import java.util.*;
 
 import models.*;
 
+@With({Auth.class})
 public class Application extends Controller {
 
     public static void index() {
@@ -48,18 +49,4 @@ public class Application extends Controller {
 
     }
     
-    public static void signin(){
-    	Twitter twitter = new TwitterFactory().getInstance();
-    	String callbackURL  = request.url;
-    	int index = callbackURL.lastIndexOf("/");
-    	//twitter.setOAuthConsumer(configMgr.getConsumerKey(),
-         //       configMgr.getConsumerSecret());
-    	//Logger.debug("Consumer Key: " + configMgr.getConsumerKey()
-         //       + ", Consumer Secret: " + configMgr.getConsumerSecret());
-    	// RequestToken requestToken = twitter
-          //      .getOAuthRequestToken(callbackURL.toString());
-    	//request.getSession().setAttribute(CallBackServlet.REQUEST_TOKEN, requestToken);
-    	//response.sendRedirect(requestToken.getAuthenticationURL());
-    }
-
 }

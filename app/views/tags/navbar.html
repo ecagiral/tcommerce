@@ -6,7 +6,7 @@
 		<ul class="nav" id="topNav">
 			<li><a href="/">Ana Sayfa</a>
 			</li> 
-		#{if user}
+		#{if _user}
 			<li><a href="#addProductModal" data-toggle="modal"
 				data-target="#addProductModal">�r�n Ekle</a>
 			</li>
@@ -22,22 +22,25 @@
 		</div>
 		#{/form}
 		<ul class="nav pull-right">
-			#{if user}
+			#{if _user}
 			<li class="dropdown">
 				<a class="dropdown-toggle" href="#"
-				data-toggle="dropdown">${user.screenName} <strong class="caret"></strong>
+				data-toggle="dropdown">${_user.screenName} <strong class="caret"></strong>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="@Application.showProducts(user.id)">Ürünlerim</a>
+					<li><a href="@Application.showProducts(_user.id)">Ürünlerim</a>
 					</li>
-					<li><a href="@Application.showUser(user.id)">Profilim</a></li>
+					<li><a href="@Application.showUser(_user.id)">Profilim</a></li>
 					<li><a href="@Application.signout()">Çıkış</a></li>
 				</ul>
 			</li> 
 			#{/if} 
 			#{else}
 				<li>
-					<a class="noPad" href="@{Application.signin()}"><img
+					<a class="noPad" href="/auth/signup">Signup</a>
+				</li> 
+				<li>
+					<a class="noPad" href="/auth/twitterAuthenticate"><img
 						title="Sign in with Twitter" alt="Sign in with Twitter"
 						src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png">
 					</a>
