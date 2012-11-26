@@ -26,15 +26,15 @@ public class Auth extends Controller{
     .apiKey("?")
     .apiSecret("?");
 	
-    @Before(unless = { "authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter"}, priority = 0)
-    static void before() {
-        Long userId = Cache.get(session.getId(), Long.class);
-        if (userId == null) {
-            flash.put(ORIGINAL_URL_SESSION_KEY, request.url);
-            login();
-        }
-        renderArgs.put("user", getCurrentUser());
-    }
+    //@Before(unless = { "authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter"}, priority = 0)
+    //static void before() {
+    //    Long userId = Cache.get(session.getId(), Long.class);
+    //    if (userId == null) {
+    //        flash.put(ORIGINAL_URL_SESSION_KEY, request.url);
+    //        login();
+    //    }
+    //    renderArgs.put("user", getCurrentUser());
+    //}
     
     public static void login() {
         if (Cache.get(session.getId()) != null) {
@@ -78,7 +78,7 @@ public class Auth extends Controller{
     }
     
     public static void authenticate(User user) {
-        User fetched = User.findByEmailOrUsername(user.screenName);
+        User fetched = User.findByEmailOrUsername(user.email);
         if (fetched == null) {
             flash.error(Messages.get("invalid.user.name"));
             Auth.login();

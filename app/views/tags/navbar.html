@@ -4,48 +4,64 @@
 		<!-- Your site name for the upper left corner of the site -->
 		<a class="brand" href="<%=request.getContextPath()%>">t-commerce</a>
 		<ul class="nav" id="topNav">
-			<li><a href="/">Ana Sayfa</a>
-			</li> 
-		#{if _user}
+			<li><a href="/">Ana Sayfa</a></li> #{if _user}
 			<li><a href="#addProductModal" data-toggle="modal"
-				data-target="#addProductModal">�r�n Ekle</a>
-			</li>
-		#{/if}
+				data-target="#addProductModal">�r�n Ekle</a></li> #{/if}
 		</ul>
 		#{form @Application.search(), class:'navbar-search pull-center',
 		style:'margin-left: 15%;'}
 		<div class="input-append">
 			<input type="text" class="search-query" placeholder="Ürün Ara"
 				name="query"> <span class="add-on"><i
-				class="icon-search"> </i>
-			</span>
+				class="icon-search"> </i> </span>
 		</div>
 		#{/form}
 		<ul class="nav pull-right">
 			#{if _user}
-			<li class="dropdown">
-				<a class="dropdown-toggle" href="#"
+			<li class="divider-vertical"></li>
+			<li class="dropdown"><a class="dropdown-toggle" href="#"
 				data-toggle="dropdown">${_user.screenName} <strong class="caret"></strong>
-				</a>
+			</a>
 				<ul class="dropdown-menu">
 					<li><a href="@Application.showProducts(_user.id)">Ürünlerim</a>
 					</li>
 					<li><a href="@Application.showUser(_user.id)">Profilim</a></li>
 					<li><a href="@Application.signout()">Çıkış</a></li>
-				</ul>
-			</li> 
+				</ul></li> 
 			#{/if} 
 			#{else}
-				<li>
-					<a class="noPad" href="/auth/signup">Signup</a>
-				</li> 
-				<li>
-					<a class="noPad" href="/auth/twitterAuthenticate"><img
-						title="Sign in with Twitter" alt="Sign in with Twitter"
-						src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png">
-					</a>
-				</li> 
-			#{/else}
+				<li class="divider-vertical"></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Login <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a class="noPad" href="/auth/twitterAuthenticate"><img
+								title="Sign in with Twitter" alt="Sign in with Twitter"
+								src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png">
+						</a></li>
+						<li class="divider"></li>
+						<li style="text-align: center;"><h6>or using <i>tcommerce</i> account</h6></li>
+						<li>      
+						  #{form @Auth.authenticate(), style: 'margin-bottom: 30px;'}
+				         <div class="control-group" style="margin-bottom: 2px;">
+						    <div class="controls">
+						      <input type="text" id="email" name="user.email" placeholder="Email" style="margin-bottom: 0px; margin-left: 18px; padding-top: 0px; padding-right: 0px; width: 160px;">
+						    </div>
+						  </div>
+						  <div class="control-group" style="margin-bottom: 2px;">
+						    <div class="controls">
+						      <input type="password" id="password" name="user.password" placeholder="Password" style="margin-bottom: 0px; margin-left: 18px; padding-top: 0px; padding-right: 0px; width: 160px;">
+						    </div>
+						  </div>
+						  <div class="control-group pull-right" style="margin-bottom: 2px;">
+                            <div class="controls">
+                              <button type="submit" class="btn btn-mini btn-primary" style="margin-bottom: 0px; margin-right: 13px; margin-top:2px; padding-top: 0px; padding-right: 0px; ">Sign in</button>
+                            </div>
+                          </div>
+				        #{/form}</li>
+						<li class="divider"></li>
+						<li><a href="@{Auth.signup()}"><b>Create Account</b></a></li>
+					</ul></li>
+             #{/else}
 		</ul>
 	</div>
 </div>
