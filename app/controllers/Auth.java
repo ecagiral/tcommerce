@@ -26,15 +26,15 @@ public class Auth extends Controller{
     .apiKey("?")
     .apiSecret("?");
 	
-    //@Before(unless = { "authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter"}, priority = 0)
-    //static void before() {
-    //    Long userId = Cache.get(session.getId(), Long.class);
-    //    if (userId == null) {
-    //        flash.put(ORIGINAL_URL_SESSION_KEY, request.url);
-    //        login();
-    //    }
-    //    renderArgs.put("user", getCurrentUser());
-    //}
+    @Before(unless = { "Application.index","authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter"}, priority = 0)
+    static void before() {
+        Long userId = Cache.get(session.getId(), Long.class);
+        if (userId == null) {
+            flash.put(ORIGINAL_URL_SESSION_KEY, request.url);
+            login();
+        }
+        renderArgs.put("user", getCurrentUser());
+    }
     
     public static void login() {
         if (Cache.get(session.getId()) != null) {

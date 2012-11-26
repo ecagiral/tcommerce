@@ -1,6 +1,7 @@
 package controllers;
 
 import play.*;
+import play.cache.Cache;
 import play.mvc.*;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -16,6 +17,10 @@ public class Application extends Controller {
     public static void index() {
     	Logger.info("index triggered");
     	List<Item> items = Item.findAll();
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	if(userId!=null){
+    		renderArgs.put("user",User.findById(userId));
+    	}
         render(items);
     }
     
