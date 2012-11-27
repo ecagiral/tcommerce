@@ -3,18 +3,24 @@ User(engin):
     authToken: egullerToken
     authTokenSecret: egullerTokenSecret
     picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
-    email: en@a.com
-    salt: gv9ttqthAZWFwHKmw47TOPfGkiPQ/MzdvceJjmJ7nE5sJrYJ1eRB1+7eFdaB31LhR3yOyrKFuC/Ze9DlNBRXDw==
-    password: 9LmqnYnGQfP2Ox7kMtXD1WRS1DOJ3EXQafqzLUT8x1py2y2FjoyYTDrifGl1rx9Bc9YFN/r4c9Z8hBoxP8Ulvw==
+    fullName: Engin Guller
+    type: TWITTER
 
 User(erman):
     screenName: ErmanCagiral
     authToken: ermanToken
     authTokenSecret: ermanTokenSecret
     picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
-    email: er@a.com
+    fullName: Erman Cagiral
+    type: TWITTER
+    
+User(engin_native):
+    picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
+    email: en@a.com
     salt: 4bPtc30ZHqZhnOtvNwl6sxSMkaqY3M9A+Vdrm1uoj0PcnAfFbSFWHwFM5Gyw5/dOda72IO6g+tNlG3ZgXMbwUg==
     password: qPos+zVRCZvz6HEcx3Zkkg5hL+YDCJbVoOE0Bnk8NIhbk7MMd3ztBpnZ74d5G9rF9uOYZqDoE7ta/Sd0Xsy5lQ==
+    fullName: Engin Guller
+    type: NATIVE
 
 Item(item1):
     twit: Selling bike

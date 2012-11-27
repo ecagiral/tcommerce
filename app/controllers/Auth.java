@@ -1,5 +1,7 @@
 package controllers;
 
+import jobs.OAuthSettings;
+
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.Token;
@@ -7,16 +9,21 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import models.User;
+import models.UserType;
 import play.cache.Cache;
 import play.data.validation.Valid;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Router;
 import play.mvc.Util;
 import play.mvc.Scope.Params;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 public class Auth extends Controller{
 	
@@ -26,7 +33,7 @@ public class Auth extends Controller{
     .apiKey("?")
     .apiSecret("?");
 	
-    @Before(unless = { "Application.index","authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter"}, priority = 0)
+    @Before(unless = { "Application.index","authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter", "twitterAuthentication"}, priority = 0)
     static void before() {
         Long userId = Cache.get(session.getId(), Long.class);
         if (userId == null) {
@@ -67,13 +74,13 @@ public class Auth extends Controller{
             Auth.signup();
         }
 
-        user = new User(user.email, user.screenName, user.password);
+        user = new User(user.email, user.password);
         try {
             user.save();
         } catch (Exception e) {
             error();
         }
-        afterLogin(user.id, session.getId());
+        afterLogin(session.getId(), user.id);
         Auth.login();
     }
     
@@ -85,7 +92,7 @@ public class Auth extends Controller{
         } else {
             boolean checkPassword = fetched.checkPassword(user.password);
             if(checkPassword){
-                afterLogin(fetched.id, session.getId());
+                afterLogin(session.getId(), fetched.id);
             }else{
                 flash.error(Messages.get("invalid.password"));
                 Auth.login();
@@ -95,7 +102,7 @@ public class Auth extends Controller{
     }
 
     @Util
-    private static void afterLogin(Long userId, String sessionId) {
+    private static void afterLogin(String sessionId, Long userId) {
         // cache replaces may be unnecessary ?
         if (Cache.get(sessionId) == null) {
             Cache.add(sessionId, userId);
@@ -116,64 +123,45 @@ public class Auth extends Controller{
         return User.findById(userId);
     }
     
-    public static void twitterAuthenticate(){
-        String tk = Codec.UUID();
-        OAuthService service = sb.callback("http://localhost:9000/twitter/" + tk + "/").build();
+
+    public static void twitterAuthentication(){
+        OAuthService service = sb.provider(TwitterApi.class).apiKey(OAuthSettings.getConsumerKey()).apiSecret(OAuthSettings.getConsumerSecret()).callback(Router.getFullUrl("Auth.twitterCallback")).build();
         Token requestToken = service.getRequestToken();
-        Cache.add(tk, requestToken, "3min");
+        Cache.add(requestToken.getToken(), requestToken, "3min");
         String authorizationUrl = service.getAuthorizationUrl(requestToken);
         redirect(authorizationUrl);
     }
     
-    public static void twitterCallback(String tokenKey, String denied) {
+    public static void twitterCallback(String oauth_token, String oauth_verifier, String denied) throws TwitterException {
         if (denied != null) {
-            Cache.delete(tokenKey);
+            Cache.delete(oauth_token);
             login();
         }
-        Token t = Cache.get(tokenKey, Token.class);
-        Verifier verifier = new Verifier(Params.current().get("oauth_verifier"));
-        OAuthService service = sb.callback("http://localhost:9000/twitter/" + tokenKey + "/").build();
-        Token token = service.getAccessToken(t, verifier);
-        String rawResponse = token.getRawResponse();
-        Cache.delete(tokenKey);
-        String[] splitted = rawResponse.split("&");
-        String oauthToken = null, oauthTokenSecret = null, userId = null, screenName = null;
-        for (String s : splitted) {
-            String value = s.split("=")[1];
-            if (s.contains("oauth_token=")) {
-                oauthToken = value;
-            } else if (s.contains("oauth_token_secret=")) {
-                oauthTokenSecret = value;
-            } else if (s.contains("user_id=")) {
-                userId = value;
-            } else if (s.contains("screen_name=")) {
-                screenName = value;
-            }
-        }
-        User user = User.findByTwitterId(Long.getLong(userId));
+        Token token = Cache.get(oauth_token, Token.class);
+        Cache.delete(oauth_token);
+        
+        Twitter twitter = new TwitterFactory().getInstance();
+        twitter.setOAuthConsumer(OAuthSettings.getConsumerKey(),
+        		OAuthSettings.getConsumerSecret());
+        RequestToken requestToken = new RequestToken(token.getToken(), token.getSecret());
+        AccessToken accessToken = twitter.getOAuthAccessToken(requestToken,
+        		oauth_verifier);
+        
+        long userId = accessToken.getUserId();
+        String authToken = accessToken.getToken();
+		String authTokenSecret = accessToken.getTokenSecret();
+		twitter.setOAuthAccessToken(accessToken);
+		twitter4j.User twUser =  twitter.showUser(userId);
+        User user = User.findByTwitterId(userId);
         if(user==null){
-        	user = new User(screenName,oauthToken,oauthTokenSecret,Long.getLong(userId));
-        	user.save();
-        }else{
-        	user.authToken = oauthToken;
-        	user.authTokenSecret = oauthTokenSecret;
-        	user.save();
+        	user = new User(twUser, authToken, authTokenSecret);
         }
-        afterLogin(user.id, session.getId());
+        else{
+        	user.updateTwData(twUser,authToken,authTokenSecret);
+        }
+  	
+    	user.save();
+        
+    	afterLogin(session.getId(), user.id);
     }
-    
-    public static void twitterLogin(){
-    	Twitter twitter = new TwitterFactory().getInstance();
-    	String callbackURL  = request.url;
-    	int index = callbackURL.lastIndexOf("/");
-    	//twitter.setOAuthConsumer(configMgr.getConsumerKey(),
-         //       configMgr.getConsumerSecret());
-    	//Logger.debug("Consumer Key: " + configMgr.getConsumerKey()
-         //       + ", Consumer Secret: " + configMgr.getConsumerSecret());
-    	// RequestToken requestToken = twitter
-          //      .getOAuthRequestToken(callbackURL.toString());
-    	//request.getSession().setAttribute(CallBackServlet.REQUEST_TOKEN, requestToken);
-    	//response.sendRedirect(requestToken.getAuthenticationURL());
-    }
-
-}
+  }

@@ -3,9 +3,12 @@ package models;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,24 +34,23 @@ public class User extends Model {
 
 	public String fullName;
 	public String salt;
-
+	
+	@Enumerated(EnumType.STRING) 
 	public UserType type;
 
 	@OneToMany
 	public List<Item> items;
 
-	public User(String name, String email, String password) {
-		this.screenName = name;
-		this.email = email;
-		this.password = password;
+	
+	public User(twitter4j.User twUser, String authToken, String authTokenSecret){
+		updateTwData(twUser, authToken, authTokenSecret);
 	}
 
-	public User(String name, String authToken, String authTokenSecret,
-			Long twitterId) {
-		this.screenName = name;
-		this.authToken = authToken;
-		this.authTokenSecret = authTokenSecret;
-		this.twitterId = twitterId;
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+		this.salt = sha512(String.valueOf(Calendar.getInstance().getTimeInMillis()) + String.valueOf(Math.random()));
+		this.type = UserType.NATIVE;
 	}
 
 	public static User findByEmailOrUsername(String emailOrUserName) {
@@ -83,4 +85,13 @@ public class User extends Model {
 		return sha512;
 	}
 
+	public void updateTwData(twitter4j.User twUser, String authToken,
+			String authTokenSecret) {
+		this.screenName = twUser.getScreenName();
+		this.picture = twUser.getProfileImageURL().toExternalForm();
+		this.fullName = twUser.getName();
+		this.authToken = authToken;
+		this.authTokenSecret = authTokenSecret;
+		
+	}
 }
