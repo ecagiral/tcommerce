@@ -5,6 +5,7 @@ User(engin):
     picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
     fullName: Engin Guller
     type: TWITTER
+    adsTweetLevel: NONE
 
 User(erman):
     screenName: ErmanCagiral
@@ -13,6 +14,7 @@ User(erman):
     picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
     fullName: Erman Cagiral
     type: TWITTER
+    adsTweetLevel: NONE
     
 User(engin_native):
     picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
@@ -21,13 +23,14 @@ User(engin_native):
     password: qPos+zVRCZvz6HEcx3Zkkg5hL+YDCJbVoOE0Bnk8NIhbk7MMd3ztBpnZ74d5G9rF9uOYZqDoE7ta/Sd0Xsy5lQ==
     fullName: Engin Guller
     type: NATIVE
+    adsTweetLevel: NONE
 
 Item(item1):
-    twit: Selling bike
+    description: Selling bike
     picture: http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg
     owner: [erman]
     
 Item(item2):
-    twit: I am selling my guitar
+    description: I am selling my guitar
     picture: http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg
     owner: [engin]

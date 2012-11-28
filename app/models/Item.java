@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.codec.binary.Hex;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -18,7 +19,7 @@ import play.db.jpa.Model;
 public class Item extends Model{
 	
 	@Required
-	public String twit;
+	public String description;
 	
 	@Required
 	public String picture;
@@ -26,13 +27,15 @@ public class Item extends Model{
 	@ManyToOne
 	public User owner;
 	
+	public int price;
+	
 	@ManyToMany
 	@Cascade(value={CascadeType.PERSIST,CascadeType.MERGE})
 	public List<SearchKey> searchKey;
 	
-	public Item(String twit, File picture, String key, User owner){
-		this.twit = twit;
-		this.picture = picture.getName();
+	public Item(String description, String picture, String key, User owner, int price){
+		this.description = description;
+		this.picture = picture;
 		this.owner = owner;
 		SearchKey searchKey = SearchKey.find("byKeyName", key).first();
 		if(searchKey==null){

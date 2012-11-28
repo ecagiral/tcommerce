@@ -30,8 +30,8 @@ public class Auth extends Controller{
 	private final static String ORIGINAL_URL_SESSION_KEY = "original_url";
 	static ServiceBuilder sb = new ServiceBuilder()
     .provider(TwitterApi.class)
-    .apiKey("?")
-    .apiSecret("?");
+    .apiKey(OAuthSettings.getConsumerKey())
+    .apiSecret(OAuthSettings.getConsumerSecret()).callback(Router.getFullUrl("Auth.twitterCallback"));
 	
     @Before(unless = { "Application.index","authenticate", "logout", "login", "signup", "register", "twitterCallback", "registerWithTwitter", "twitterAuthentication"}, priority = 0)
     static void before() {
@@ -125,7 +125,7 @@ public class Auth extends Controller{
     
 
     public static void twitterAuthentication(){
-        OAuthService service = sb.provider(TwitterApi.class).apiKey(OAuthSettings.getConsumerKey()).apiSecret(OAuthSettings.getConsumerSecret()).callback(Router.getFullUrl("Auth.twitterCallback")).build();
+        OAuthService service = sb.build();
         Token requestToken = service.getRequestToken();
         Cache.add(requestToken.getToken(), requestToken, "3min");
         String authorizationUrl = service.getAuthorizationUrl(requestToken);

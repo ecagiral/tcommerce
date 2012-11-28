@@ -16,7 +16,7 @@ import org.bouncycastle.util.encoders.Base64;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.libs.Codec;
+import util.Codec;
 
 @Entity
 public class User extends Model {
@@ -37,6 +37,14 @@ public class User extends Model {
 	
 	@Enumerated(EnumType.STRING) 
 	public UserType type;
+	
+	public String description;
+	public String webSite;
+	public String location;
+	
+	@Enumerated(EnumType.STRING) 
+	public AdsTweetLevel adsTweetLevel;
+	
 
 	@OneToMany
 	public List<Item> items;
@@ -44,13 +52,15 @@ public class User extends Model {
 	
 	public User(twitter4j.User twUser, String authToken, String authTokenSecret){
 		updateTwData(twUser, authToken, authTokenSecret);
+		this.adsTweetLevel = AdsTweetLevel.NONE;
 	}
 
 	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.salt = sha512(String.valueOf(Calendar.getInstance().getTimeInMillis()) + String.valueOf(Math.random()));
+		this.salt = Codec.sha512_64(String.valueOf(Calendar.getInstance().getTimeInMillis()) + String.valueOf(Math.random()));
 		this.type = UserType.NATIVE;
+		this.adsTweetLevel = AdsTweetLevel.NONE;
 	}
 
 	public static User findByEmailOrUsername(String emailOrUserName) {
@@ -59,7 +69,7 @@ public class User extends Model {
 	}
 
 	public boolean checkPassword(String password) {
-		String sha512 = sha512(password + salt);
+		String sha512 = Codec.sha512_64(password + salt);
 		return this.password.equals(sha512);
 	}
 
@@ -67,23 +77,7 @@ public class User extends Model {
 		return User.find("byTwitterId", twitterId).first();
 	}
 
-	private static String sha512(String val) {
-		String sha512 = null;
-		MessageDigest messageDigest;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-512");
-			messageDigest.update(val.toString().getBytes("UTF-8"));
-			sha512 = new String(Base64.encode(messageDigest.digest()));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		return sha512;
-	}
 
 	public void updateTwData(twitter4j.User twUser, String authToken,
 			String authTokenSecret) {
@@ -92,6 +86,6 @@ public class User extends Model {
 		this.fullName = twUser.getName();
 		this.authToken = authToken;
 		this.authTokenSecret = authTokenSecret;
-		
+		this.type = UserType.TWITTER;
 	}
 }

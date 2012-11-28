@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="productDetail">
-				${product.twit}
+				${product.description}
 			</div>
 
 		</div>
@@ -28,9 +28,9 @@
 			<p style="text-align: right; margin-right: 10px;">
 			    %{view = String.valueOf((int)(Math.random() * 100)) }%
 			    %{comment = String.valueOf((int)(Math.random() * 20))}%
-				<span class="comment">${view}</span>
+				<span class="comment">${view} View</span>
 				<span class="comment">&#8226;</span> <span class="comment">${comment}
-					Yorum</span>
+					Comment</span>
 			</p>
 		</div>
 		<div class="clear"></div>
@@ -43,7 +43,7 @@
 			%{ like = (int)(Math.random() * 30); }%
 			%{ trust = 100 - like}%
 			<div>
-				<p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">Satõcõ GŸveni ${trust}%</span></p>
+				<p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">Seller Rating ${trust}%</span></p>
 			</div>
 			<div class="video-extras-sparkbars" style="margin-bottom: 2px;">
 				<div class="video-extras-sparkbar-likes"
@@ -74,3 +74,4 @@
 		  });
 		});
 </script>
+    #{addProduct user:user/} 
