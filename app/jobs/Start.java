@@ -1,21 +1,24 @@
 package jobs;
 
+import graph.GraphDatabase;
+
 import java.io.File;
 
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
 @OnApplicationStart
-public class Common extends Job {
+public class Start extends Job {
 	private static String IMAGE_PATH = null;
-	public static final String FS = System.getProperty("file.separator");
+	private static final String FS = System.getProperty("file.separator");
 	public void doJob(){
+		GraphDatabase.startGraphDatabase();
 		createImageFolder();
 	}
 	
 	private void createImageFolder(){
 		String home = System.getenv("HOME");
-    	String imagePath = home + FS + ".tcomitem" + FS;
+    	String imagePath = home + FS + ".tcommerce" + FS + "images" + FS;
     	File file = new File(imagePath);
     	if(!file.exists()){
     		file.mkdirs();

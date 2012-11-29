@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -20,9 +21,12 @@ public class SearchKey extends Model{
 	
 	public Date lastSearch;
 	
-	@ManyToMany
+	@OneToMany
 	@Cascade(value={CascadeType.PERSIST,CascadeType.MERGE})
 	public List<Item> item;
+	
+	@OneToMany
+	public List<User> userList;
 	
 	public SearchKey(String name){
 		this.keyName = name;

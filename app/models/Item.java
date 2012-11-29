@@ -29,9 +29,8 @@ public class Item extends Model{
 	
 	public int price;
 	
-	@ManyToMany
-	@Cascade(value={CascadeType.PERSIST,CascadeType.MERGE})
-	public List<SearchKey> searchKey;
+	@ManyToOne
+	public SearchKey searchKey;
 	
 	public Item(String description, String picture, String key, User owner, int price){
 		this.description = description;
@@ -41,8 +40,6 @@ public class Item extends Model{
 		if(searchKey==null){
 			searchKey = new SearchKey(key).save();
 		}
-		this.searchKey = new ArrayList<SearchKey>();
-		this.searchKey.add(searchKey);
 	}
 
 }

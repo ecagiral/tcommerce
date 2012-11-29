@@ -2,23 +2,14 @@ User(engin):
     screenName: eguller
     picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
     fullName: Engin Guller
-    type: TWITTER
-    adsTweetLevel: NONE
+    adsTweetLevel: FIRST
+    authToken: 392768645-qcQFDPwP7043rYyTpcYmZDs6rmVOdZvMH6dSccDh
+    authTokenSecret: icacvgwvTqpikhAGaCU3VTrd9JcolZokJ5YK5jw3n4
 
 User(erman):
     screenName: ErmanCagiral
     picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
     fullName: Erman Cagiral
-    type: TWITTER
-    adsTweetLevel: NONE
-    
-User(engin_native):
-    picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
-    email: en@a.com
-    salt: 4bPtc30ZHqZhnOtvNwl6sxSMkaqY3M9A+Vdrm1uoj0PcnAfFbSFWHwFM5Gyw5/dOda72IO6g+tNlG3ZgXMbwUg==
-    password: qPos+zVRCZvz6HEcx3Zkkg5hL+YDCJbVoOE0Bnk8NIhbk7MMd3ztBpnZ74d5G9rF9uOYZqDoE7ta/Sd0Xsy5lQ==
-    fullName: Engin Guller
-    type: NATIVE
     adsTweetLevel: NONE
     
 SearchKey(new_guitar):
@@ -31,10 +22,10 @@ Item(item1):
     description: Selling bike
     picture: http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg
     owner: [erman]
-    searchKey: [new_guitar]
+    searchKey: new_guitar
     
 Item(item2):
     description: I am selling my guitar
     picture: http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg
     owner: [engin]
-    searchKey: [new_bicycle]
+    searchKey: new_bicycle

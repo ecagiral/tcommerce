@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Calendar;
+
 import jobs.OAuthSettings;
 
 import org.scribe.builder.ServiceBuilder;
@@ -9,7 +11,6 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import models.User;
-import models.UserType;
 import play.cache.Cache;
 import play.data.validation.Valid;
 import play.i18n.Messages;
@@ -19,6 +20,8 @@ import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.Util;
 import play.mvc.Scope.Params;
+import twitter.TwitterProxy;
+import twitter.TwitterProxyFactory;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -65,40 +68,6 @@ public class Auth extends Controller{
     
     public static void signup() {
         render();
-    }
-    
-    public static void register(User user) {
-
-        if (User.findByEmailOrUsername(user.email) != null) {
-            flash.error(Messages.get("signup.emailInUse"));
-            Auth.signup();
-        }
-
-        user = new User(user.email, user.password);
-        try {
-            user.save();
-        } catch (Exception e) {
-            error();
-        }
-        afterLogin(session.getId(), user.id);
-        Auth.login();
-    }
-    
-    public static void authenticate(User user) {
-        User fetched = User.findByEmailOrUsername(user.email);
-        if (fetched == null) {
-            flash.error(Messages.get("invalid.user.name"));
-            Auth.login();
-        } else {
-            boolean checkPassword = fetched.checkPassword(user.password);
-            if(checkPassword){
-                afterLogin(session.getId(), fetched.id);
-            }else{
-                flash.error(Messages.get("invalid.password"));
-                Auth.login();
-            }
-        }
-        
     }
 
     @Util
@@ -155,13 +124,22 @@ public class Auth extends Controller{
         User user = User.findByTwitterId(userId);
         if(user==null){
         	user = new User(twUser, authToken, authTokenSecret);
+        	user.firstLogin = Calendar.getInstance().getTime();
+        	user.lastLogin = user.firstLogin;
+        	
         }
         else{
         	user.updateTwData(twUser,authToken,authTokenSecret);
+        	user.lastLogin = Calendar.getInstance().getTime();
         }
-  	
     	user.save();
-        
+    	addFriends(user);
     	afterLogin(session.getId(), user.id);
     }
+    
+    private static void addFriends(User user){
+    	TwitterProxy twitterProxy = TwitterProxyFactory.newInstance(user);
+    	twitterProxy.addFriends();
+    }
+    
   }

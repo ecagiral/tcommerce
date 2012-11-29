@@ -6,7 +6,9 @@ import play.Logger;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import twitter.TwitterProxy;
+import twitter.TwitterProxyFactory;
 import twitter.TwitterProxyImpl;
+import twitter4j.TwitterFactory;
 
 @OnApplicationStart(async=true)
 public class TweetSearch extends Job {
@@ -20,14 +22,19 @@ public class TweetSearch extends Job {
 				if (searchKey != null) {
 					User user = User.findLeastUsed();
 					if(user != null){
-						TwitterProxy twitterProxy = new TwitterProxyImpl(user);
+						TwitterProxy twitterProxy = TwitterProxyFactory.newInstance(user);
 						twitterProxy.search(searchKey);
-						Thread.sleep(INTERVAL);
+						
 					}
 				}
 				
 			} catch (Exception e) {
 				Logger.error(e, "Error in tweet search");
+			}
+			try {
+				Thread.sleep(INTERVAL);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

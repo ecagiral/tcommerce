@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,4 +18,6 @@ public class Tweet extends Model{
 	public boolean responded;
 	@ManyToOne
 	public User respondedBy;
+	@OneToOne
+	public SearchKey searchKey;
 }

@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import jobs.Common;
+import jobs.Start;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.ivy.util.FileUtil;
@@ -50,7 +50,7 @@ public class Application extends Controller {
     	
     	String fileName = generatedFileName + ".jpg";
     	try {
-			FileUtils.moveFile(picture, new File(Common.getImagePath() + fileName));
+			FileUtils.moveFile(picture, new File(Start.getImagePath() + fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +62,7 @@ public class Application extends Controller {
     }
     
     public static void displayImage(String imageName){
-    	File file = new File(Common.getImagePath() + imageName);
+    	File file = new File(Start.getImagePath() + imageName);
     	renderBinary(file);
     }
 
