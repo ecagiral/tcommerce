@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -45,6 +46,7 @@ public class User extends Model {
 	@Enumerated(EnumType.STRING) 
 	public AdsTweetLevel adsTweetLevel;
 	
+	public Date lastUsed = null;
 
 	@OneToMany
 	public List<Item> items;
@@ -77,7 +79,9 @@ public class User extends Model {
 		return User.find("byTwitterId", twitterId).first();
 	}
 
-
+	public static User findLeastUsed(){
+		return User.find("type = ?1 and authToken is not null and authTokenSecret is not null order by lastUsed asc", UserType.TWITTER).first();
+	}
 
 	public void updateTwData(twitter4j.User twUser, String authToken,
 			String authTokenSecret) {

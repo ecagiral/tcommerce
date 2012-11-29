@@ -1,7 +1,5 @@
 User(engin):
     screenName: eguller
-    authToken: egullerToken
-    authTokenSecret: egullerTokenSecret
     picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
     fullName: Engin Guller
     type: TWITTER
@@ -9,8 +7,6 @@ User(engin):
 
 User(erman):
     screenName: ErmanCagiral
-    authToken: ermanToken
-    authTokenSecret: ermanTokenSecret
     picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
     fullName: Erman Cagiral
     type: TWITTER
@@ -24,13 +20,21 @@ User(engin_native):
     fullName: Engin Guller
     type: NATIVE
     adsTweetLevel: NONE
+    
+SearchKey(new_guitar):
+    keyName: need new guitar
+
+SearchKey(new_bicycle):
+    keyName: new bicycle
 
 Item(item1):
     description: Selling bike
     picture: http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg
     owner: [erman]
+    searchKey: [new_guitar]
     
 Item(item2):
     description: I am selling my guitar
     picture: http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg
     owner: [engin]
+    searchKey: [new_bicycle]
