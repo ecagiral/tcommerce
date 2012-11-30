@@ -13,7 +13,11 @@ GET     /public/                                staticDir:public
 
 GET  /twitter/{tokenKey}/						Auth.twitterCallback
 
-GET /image/{imageName}                         Application.displayImage
+GET /image/{imageName}                          Application.displayImage
+
+GET /product/{productId}						Application.showItem
+
+GET /sendtweet									Application.sendtweet
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

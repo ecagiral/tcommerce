@@ -7,7 +7,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.commons.lang.ArrayUtils;
+import org.hibernate.exception.ConstraintViolationException;
+
+import play.Logger;
 
 import jobs.OAuthSettings;
 import twitter4j.IDs;
@@ -18,6 +23,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
+import models.Item;
 import models.SearchKey;
 import models.Tweet;
 import models.User;
@@ -62,20 +68,33 @@ public class TwitterProxyImpl implements TwitterProxy {
 				Tweet t = new Tweet();
 				t.tweet = tweet.getText();
 				t.tweetId = tweet.getId();
+				t.created = tweet.getCreatedAt();
 				User owner = User.findByTwitterId(tweet.getFromUserId());
 				if (owner == null) {
-					twitter4j.User fromUser = twitter.showUser(tweet
+					try{
+						twitter4j.User fromUser = twitter.showUser(tweet
 							.getFromUserId());
-					owner = new User(fromUser, null, null);
-					owner.save();
-					t.owner = owner;
+						owner = new User(fromUser, null, null);
+						owner.save();
+						t.owner = owner;
+					}catch (TwitterException e) {
+						Logger.error(e,"");
+					}
 				}
 				t.responded = false;
 				t.respondedBy = null;
-				t.save();
+				t.item = searchKey.getRandomItem();
+				try{
+					if(t.owner != null){
+						t.save();
+					}
+				}catch (PersistenceException e) {
+					if(! (e.getCause() instanceof ConstraintViolationException)){
+						Logger.error(e, "");
+					}
+				}
 			}
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

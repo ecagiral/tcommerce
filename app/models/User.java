@@ -3,10 +3,12 @@ package models;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,9 +39,10 @@ public class User extends Model {
 	public Date lastAds = null;
 	public Date firstLogin = null;
 	public Date lastLogin = null;
+	public Date lastResponded = null;
 
-	@OneToMany
-	public List<Item> items;
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="owner")
+	public List<Item> items = new ArrayList<Item>();
 
 	
 	public User(twitter4j.User twUser){
@@ -76,9 +79,5 @@ public class User extends Model {
 		this.location = twUser.getLocation();
 		this.description = twUser.getDescription();
 		this.twitterId = twUser.getId();
-	}
-
-	public static User findUser4Tweet() {
-		return User.find("authToken is not null and authTokenSecret is not null adsTweetLevel != ?1 order by lastAds asc",AdsTweetLevel.NONE).first();
 	}
 }

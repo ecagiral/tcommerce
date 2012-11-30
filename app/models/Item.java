@@ -2,15 +2,16 @@ package models;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.apache.commons.codec.binary.Hex;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -32,6 +33,11 @@ public class Item extends Model{
 	@ManyToOne
 	public SearchKey searchKey;
 	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="item")
+	public List<Tweet> tweets; 
+	
+	public Date lastAds;
+	
 	public Item(String description, String picture, String key, User owner, int price){
 		this.description = description;
 		this.picture = picture;
@@ -41,5 +47,8 @@ public class Item extends Model{
 			searchKey = new SearchKey(key).save();
 		}
 	}
-
+	
+	public static Item findItem2Ads(){
+		return null;//return Item.find("owner.adsTweetLevel <> ?1 and (select count(*) from tweet where item = ) order by lastAds", AdsTweetLevel.NONE).first();
+	}
 }

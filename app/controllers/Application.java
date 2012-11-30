@@ -39,7 +39,8 @@ public class Application extends Controller {
     	render();
     }
     
-    public static void showItem(Item item){
+    public static void showItem(Long itemId){
+    	Item item = Item.findById(itemId);
     	Logger.info(item.toString());
     	render();
     }
@@ -77,9 +78,8 @@ public class Application extends Controller {
     public static void showUserItems(Long userId){
 
     }
-
-    public static void signout(){
-
-    }
     
+    public static void sendtweet(){
+    	Tweet tweet = Tweet.getTweet2Ads();
+    }
 }

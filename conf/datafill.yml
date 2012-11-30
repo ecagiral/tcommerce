@@ -1,31 +1,57 @@
 User(engin):
-    screenName: eguller
-    picture: https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg
-    fullName: Engin Guller
+    twitterId: 392768645
+    screenName: "eguller"
+    picture: "https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg"
+    fullName: "Engin Guller"
     adsTweetLevel: FIRST
-    authToken: 392768645-qcQFDPwP7043rYyTpcYmZDs6rmVOdZvMH6dSccDh
-    authTokenSecret: icacvgwvTqpikhAGaCU3VTrd9JcolZokJ5YK5jw3n4
+    authToken: "392768645-qcQFDPwP7043rYyTpcYmZDs6rmVOdZvMH6dSccDh"
+    authTokenSecret: "icacvgwvTqpikhAGaCU3VTrd9JcolZokJ5YK5jw3n4"
 
 User(erman):
-    screenName: ErmanCagiral
-    picture: https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg
-    fullName: Erman Cagiral
+    twitterId: 467241262
+    screenName: "ErmanCagiral"
+    picture: "https://si0.twimg.com/profile_images/1797496474/linked_reasonably_small.jpg"
+    fullName: "Erman Cagiral"
+    adsTweetLevel: NONE
+
+User(kutyar):
+    twitterId: 41789693
+    screenName: "kutyaroztas"
+    picture: "https://si0.twimg.com/profile_images/1201695717/b_img1.jpg"
+    fullName: "Kutyar Oztas"
     adsTweetLevel: NONE
     
 SearchKey(new_guitar):
-    keyName: need new guitar
+    keyName: "need new guitar"
 
 SearchKey(new_bicycle):
-    keyName: new bicycle
+    keyName: "new bicycle"
 
 Item(item1):
-    description: Selling bike
-    picture: http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg
-    owner: [erman]
+    description: "Selling bike"
+    picture: "http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg"
+    owner: erman
     searchKey: new_guitar
     
 Item(item2):
-    description: I am selling my guitar
-    picture: http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg
-    owner: [engin]
+    description: "I am selling my guitar"
+    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    owner: engin
     searchKey: new_bicycle
+    
+Tweet(fake):
+    tweetId: 274527182267748352
+    tweet: "i need a new guitar. or an electric one. whichever works."
+    owner: engin
+    item: item2
+    responded: false
+    created: "2010-02-02"
+
+Tweet(fake):
+    tweetId: 239702511320182784
+    tweet: "i need a new guitar. or an electric one. whichever works."
+    owner: kutyar
+    item: item2
+    responded: false
+    created: "2010-02-02"    
+    

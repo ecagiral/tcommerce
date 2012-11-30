@@ -12,7 +12,7 @@
 #{list items:items, as:'product'}
     	<div class="productWindow">
 		<div class="productCard"
-			onclick="window.location='@{Application.showItem(product)}'"
+			onclick="window.location='/product/${product.id}'"
 			style='cursor: pointer;'>
 			<div class="productImg">
 				<img src="${product.picture}" alt="foto" />

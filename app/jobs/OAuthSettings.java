@@ -4,7 +4,7 @@ import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
-@OnApplicationStart
+@OnApplicationStart(async=true)
 public class OAuthSettings extends Job{
 	private static String consumerKey;
 	private static String consumerSecret;

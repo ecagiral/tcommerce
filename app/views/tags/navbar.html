@@ -26,7 +26,7 @@
 					<li><a href="@Application.showProducts(_user.id)">Products</a>
 					</li>
 					<li><a href="@Application.showUser(_user.id)">Profile</a></li>
-					<li><a href="@{Application.signout()}">Log out</a></li>
+					<li><a href="@{Auth.logout()}">Log out</a></li>
 				</ul></li> 
 			#{/if} 
 			#{else}
