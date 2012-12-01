@@ -26,7 +26,6 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-    	Logger.info("index triggered");
     	List<Item> items = Item.findAll();
     	Long userId = Cache.get(session.getId(), Long.class);
     	if(userId!=null){
@@ -40,9 +39,15 @@ public class Application extends Controller {
     }
     
     public static void showItem(Long itemId){
-    	Item item = Item.findById(itemId);
-    	Logger.info(item.toString());
-    	render();
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	if(userId!=null){
+    		renderArgs.put("user",User.findById(userId));
+    	}
+    	Item product = Item.findById(itemId);
+    	for(Comment comment :product.comments){
+    		Logger.info(comment.commentText);
+    	}
+    	render(product);
     }
     
     public static void addItem(String description, String price, String keyword, File picture){
@@ -96,5 +101,27 @@ public class Application extends Controller {
     
     public static void sendtweet(){
     	Tweet tweet = Tweet.getTweet2Ads();
+    }
+    
+    public static void addComment(Long itemId, String text){
+    	String error;
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	if(userId==null){
+    		error = "you need to sign up";
+    		render(error);
+    	}
+    	User user = User.findById(userId);
+    	if(user==null){
+    		error = "you need to sign up";
+    		render(error);
+    	}
+    	renderArgs.put("user",user);
+    	Item item = Item.findById(itemId);
+    	if(item==null){
+    		error = "you need to sign up";
+    		render(error);
+    	}
+    	Comment comment = new Comment(user,text,item).save();
+    	render(comment);
     }
 }

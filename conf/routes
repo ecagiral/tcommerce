@@ -15,9 +15,11 @@ GET  /twitter/{tokenKey}/						Auth.twitterCallback
 
 GET /image/{imageName}                          Application.displayImage
 
-GET /product/{productId}						Application.showItem
+GET /item/{itemId}								Application.showItem
 
 GET /sendtweet									Application.sendtweet
+
+POST /addComment								Application.addComment
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

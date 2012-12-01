@@ -35,16 +35,6 @@ public class Auth extends Controller{
     .provider(TwitterApi.class)
     .apiKey(OAuthSettings.getConsumerKey())
     .apiSecret(OAuthSettings.getConsumerSecret()).callback(Router.getFullUrl("Auth.twitterCallback"));
-	
-    @Before(unless = { "Application.index", "Application.search","logout", "login", "twitterCallback", "twitterAuthentication", "Application.sendtweet"}, priority = 0)
-    static void before() {
-        Long userId = Cache.get(session.getId(), Long.class);
-        if (userId == null) {
-            flash.put(ORIGINAL_URL_SESSION_KEY, request.url);
-            login();
-        }
-        renderArgs.put("user", getCurrentUser());
-    }
     
     public static void login() {
         if (Cache.get(session.getId()) != null) {

@@ -16,7 +16,7 @@
 #{list items:items, as:'product'}
     	<div class="productWindow">
 		<div class="productCard"
-			onclick="window.location='/product/${product.id}'"
+			onclick="window.location='/item/${product.id}'"
 			style='cursor: pointer;'>
 			<div class="productImg">
 				<img src="${product.picture}" alt="foto" />
@@ -31,10 +31,8 @@
 		<div>
 			<p style="text-align: right; margin-right: 10px;">
 			    %{view = String.valueOf((int)(Math.random() * 100)) }%
-			    %{comment = String.valueOf((int)(Math.random() * 20))}%
 				<span class="comment">${view} View</span>
-				<span class="comment">&#8226;</span> <span class="comment">${comment}
-					Comment</span>
+				<span class="comment">&#8226;</span> <span class="comment">${product.comments.size()} Comment</span>
 			</p>
 		</div>
 		<div class="clear"></div>

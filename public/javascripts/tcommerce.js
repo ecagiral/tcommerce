@@ -1,18 +1,16 @@
-function addComment(){
+/*function addComment(){
 	var commentText = $("#message").val();
 	var announcerId = $("#comment-announcer-id").val();
 	var productId = $("#comment-product-id").val();
 	var comment = new Comment(commentText, announcerId, productId);
 	comment.add();
-}
+}*/
 
 $.postJSON = function(url, data, callback) {
     return $.ajax({
         'type' : 'POST',
         'url' : url,
-        'processData' : false,
-        'contentType' : 'application/json',
-        'data' : JSON.stringify(data),
+        'data' : data,
         'dataType' : 'json',
         'success' : callback,
         'error' : error_callback
@@ -68,7 +66,7 @@ function getCookie(c_name) {
 
 
 
-function Comment(comment, userId, productId){
+/*function Comment(comment, userId, productId){
 	this.comment = comment;
 	this.announcerId = userId;
 	this.productId = productId;
@@ -84,4 +82,32 @@ function Comment(comment, userId, productId){
 		.appendTo("#commentContainer");
 		$("#message").val("");
 	};
+}*/
+
+
+//////////////////ERMAN
+
+function Comment(comment, itemId){
+	this.text = comment;
+	this.itemId = itemId;
+	
+	this.add = function(){
+		var data = {itemId:itemId,'text':comment};
+		$.postJSON("/addComment", data, this.add_CallBack);
+	};
+	
+	this.add_CallBack = function (data){
+		if(data.error){
+			alert(data.error);	
+		}else{
+			console.log("comment : \""+data.text+"\" added to item : "+data.item);
+		}
+		
+	};
+}
+
+function addComment(item){
+	var text = $("#commentText").val();
+	var comment = new Comment(text,item);
+	comment.add();
 }

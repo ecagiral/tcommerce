@@ -1,0 +1,5 @@
+{
+	"item": "${comment?.item?.id}",
+    "text": "${comment?.commentText}",
+    "error": "${error}"
+}

@@ -1,11 +1,52 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Item Details' /}
 
-Add item
+<div class="productWindow">
+	<div class="productCard" onclick="window.location='/item/${product.id}'" style='cursor: pointer;'>
+		<div class="productImg">
+			<img src="${product.picture}" alt="foto" />
+		</div>
 
-<form  action="@{Application.addItem()}" method="post" enctype="multipart/form-data" >
-Resim: <input type="file" name="picture" size="40"><br>
-Twit: <input type="text" name="twit"><br>
-Keys: <input type="text" name="key">
-<input type="submit" name="gonder">
-</form>
+		<div class="productDetail">
+			${product.description}
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	<div>
+		<p style="text-align: right; margin-right: 10px;">
+		    %{view = String.valueOf((int)(Math.random() * 100)) }%
+			<span class="comment">${view} View</span>
+			<span class="comment">&#8226;</span> <span class="comment">${product.comments.size()} Comment</span>
+		</p>
+	</div>
+	<div class="clear"></div>
+	<div class="cardUser"
+		onclick="window.location='<%=request.getContextPath()+"/user.jsp?user="+product.getAnnouncerId()%>'"
+		style='cursor: pointer;'>
+		<div>
+		<img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
+		</div>
+		%{ like = (int)(Math.random() * 30); }%
+		%{ trust = 100 - like}%
+		<div>
+			<p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">Seller Rating ${trust}%</span></p>
+		</div>
+		<div class="video-extras-sparkbars" style="margin-bottom: 2px;">
+			<div class="video-extras-sparkbar-likes"
+				style="width: ${100 - like}%"></div>
+			<div class="video-extras-sparkbar-dislikes"
+				style="width: ${like}%"></div>
+		</div>
+	</div>
+	<div class = "commentContainer">
+	<span>comments</span>
+	#{list items:product.comments, as: 'comment'}
+		<div class = "commentElement">
+			<img src="${comment.owner.picture}"> ${comment.commentText}
+		</div>
+	#{/list}
+	</div>
+	<textarea id="commentText" rows="4" cols="50">Add comment</textarea>
+	<a type="button" class="addCommentButton" data-item = "${product.id}" onclick="addComment(${product.id})">Comment</a>
+</div>

@@ -38,6 +38,9 @@ public class Item extends Model{
 	
 	public Date lastAds;
 	
+	@OneToMany(mappedBy="item")
+	public List<Comment> comments;
+	
 	public Item(String description, String picture, String key, User owner, int price){
 		this.description = description.toLowerCase();
 		this.picture = picture;
