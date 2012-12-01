@@ -36,7 +36,7 @@ public class Auth extends Controller{
     .apiKey(OAuthSettings.getConsumerKey())
     .apiSecret(OAuthSettings.getConsumerSecret()).callback(Router.getFullUrl("Auth.twitterCallback"));
 	
-    @Before(unless = { "Application.index", "logout", "login", "twitterCallback", "twitterAuthentication", "Application.sendtweet"}, priority = 0)
+    @Before(unless = { "Application.index", "Application.search","logout", "login", "twitterCallback", "twitterAuthentication", "Application.sendtweet"}, priority = 0)
     static void before() {
         Long userId = Cache.get(session.getId(), Long.class);
         if (userId == null) {

@@ -67,8 +67,23 @@ public class Application extends Controller {
     	renderBinary(file);
     }
 
-    public static void search(String keywors){
+    public static void search(String query){
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	if(userId!=null){
+    		renderArgs.put("user",User.findById(userId));
+    	}
+    	List<Item> items = new ArrayList<Item>();
+    	if(query==null){
+    		render("application/index.html",items);
+    	}
+    	//get only first word
+    	query = query.trim().split(" ")[0];
+    	if(query == ""){
+    		render("application/index.html",items);
+    	}
+    	items = Item.searchTitle(query);
 
+        render("application/index.html",items);
     }
 
     public static void showUser(Long userId){

@@ -39,7 +39,7 @@ public class Item extends Model{
 	public Date lastAds;
 	
 	public Item(String description, String picture, String key, User owner, int price){
-		this.description = description;
+		this.description = description.toLowerCase();
 		this.picture = picture;
 		this.owner = owner;
 		SearchKey searchKey = SearchKey.find("byKeyName", key).first();
@@ -50,5 +50,9 @@ public class Item extends Model{
 	
 	public static Item findItem2Ads(){
 		return null;//return Item.find("owner.adsTweetLevel <> ?1 and (select count(*) from tweet where item = ) order by lastAds", AdsTweetLevel.NONE).first();
+	}
+	
+	public static List<Item> searchTitle(String keyword){
+		return Item.find("select i from Item i where i.description like ?", "%"+keyword.toLowerCase()+"%").fetch();
 	}
 }

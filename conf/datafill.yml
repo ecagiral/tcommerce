@@ -28,13 +28,13 @@ SearchKey(new_bicycle):
     keyName: "new bicycle"
 
 Item(item1):
-    description: "Selling bike"
+    description: "selling bike"
     picture: "http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg"
     owner: erman
     searchKey: new_guitar
     
 Item(item2):
-    description: "I am selling my guitar"
+    description: "i am selling my guitar"
     picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
     owner: engin
     searchKey: new_bicycle
