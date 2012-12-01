@@ -30,8 +30,7 @@
 		<div class="clear"></div>
 		<div>
 			<p style="text-align: right; margin-right: 10px;">
-			    %{view = String.valueOf((int)(Math.random() * 100)) }%
-				<span class="comment">${view} View</span>
+				<span class="comment">${product.getUniqueVisitorCount(product.id)} View</span>
 				<span class="comment">&#8226;</span> <span class="comment">${product.comments.size()} Comment</span>
 			</p>
 		</div>

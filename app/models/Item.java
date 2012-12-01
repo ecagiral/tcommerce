@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.codec.binary.Hex;
 
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -41,6 +42,9 @@ public class Item extends Model{
 	@OneToMany(mappedBy="item")
 	public List<Comment> comments;
 	
+	@OneToMany(mappedBy="item")
+	public List<Visitor> visitors;
+	
 	public Item(String description, String picture, String key, User owner, int price){
 		this.description = description.toLowerCase();
 		this.picture = picture;
@@ -58,4 +62,16 @@ public class Item extends Model{
 	public static List<Item> searchTitle(String keyword){
 		return Item.find("select i from Item i where i.description like ?", "%"+keyword.toLowerCase()+"%").fetch();
 	}
+	
+	public static int getUniqueVisitorCount(long itemId){
+		int count = 0;
+		try{
+			List<Visitor> visits = User.find("select v.user from Visitor v where v.item.id = ? group by v.user",itemId).fetch();
+			count = visits.size();
+		}catch(Exception e){
+			Logger.error("exception on visitor count ", e);
+		}
+		return count;
+	}
+
 }

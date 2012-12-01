@@ -40,10 +40,15 @@ public class Application extends Controller {
     
     public static void showItem(Long itemId){
     	Long userId = Cache.get(session.getId(), Long.class);
+    	User user = null;
     	if(userId!=null){
-    		renderArgs.put("user",User.findById(userId));
+    		user = User.findById(userId);
+    		renderArgs.put("user",user);
     	}
     	Item product = Item.findById(itemId);
+    	if(user!=null && product != null){
+    		new Visitor(product,user).save();
+    	}
     	for(Comment comment :product.comments){
     		Logger.info(comment.commentText);
     	}
