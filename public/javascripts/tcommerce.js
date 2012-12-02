@@ -100,7 +100,12 @@ function Comment(comment, itemId){
 		if(data.error){
 			alert(data.error);	
 		}else{
-			console.log("comment : \""+data.text+"\" added to item : "+data.item);
+			//console.log("comment : \""+data.text+"\" added to item : "+data.item);
+			var html = parseTemplate($("#commentTemplate").html(), 
+			           {comment: data});
+			$(html).fadeIn("slow")
+			.appendTo(".commentContainer");
+			$("#commentText").val("");
 		}
 		
 	};
