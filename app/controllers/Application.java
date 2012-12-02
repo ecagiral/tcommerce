@@ -95,6 +95,11 @@ public class Application extends Controller {
 
         render("application/index.html",items);
     }
+    
+    public static void profile(Long userId){
+    	User user = User.findById(userId);
+    	render(user);
+    }
 
     public static void showUser(Long userId){
 
