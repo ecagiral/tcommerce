@@ -128,58 +128,6 @@ span.comment {
 	margin-top: 3px;
 }
 
-.rounded-corners
-  
-(@
-radius
-:
-  
-5
-px
- 
-)
-{
--webkit-border-radius
-:
- 
-@
-radius
-;
-
-	
--moz-border-radius
-:
- 
-@
-radius
-;
-
-	
--ms-border-radius
-:
- 
-@
-radius
-;
-
-	
--o-border-radius
-:
- 
-@
-radius
-;
-
-	
-border-radius
-:
- 
-@
-radius
-;
-
-
-}
 .form { .rounded-corners;
 	background-color: white;
 }
@@ -203,6 +151,7 @@ radius
 		0 1px 2px rgba(0, 0, 0, .05);
 	box-shadow: 1px 0 0 rgba(0, 0, 0, .05), -1px 0 0 rgba(0, 0, 0, .05), 0
 		1px 2px rgba(0, 0, 0, .05);
+		background-color: white;
 }
 
 .avatar-container {
@@ -220,4 +169,48 @@ radius
 	-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 5px
 		rgba(0, 0, 0, 0.15);
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.username {
+	font-size: 18px;
+	font-weight: normal;
+	line-height: 24px;
+	color: #777;
+}
+
+.fullname {
+	font-weight: bold;
+	color: #333;
+	font-size: 30px;
+	line-height: 1;
+	margin-bottom: 2px;
+}
+
+.username s {
+	color: #BBB;
+}
+
+s {
+	text-decoration: none;
+}
+
+.profileCard {
+	margin-left: 120px;
+}
+
+.profileCard > h1, h2 {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.bio {
+	font: italic 13px/18px Georgia, "Times New Roman", serif;
+	color: #777;
+	word-wrap: break-word;
+}
+
+a {
+color: #4183C4;
+text-decoration: none;
+font-weight: bold;
 }

@@ -40,8 +40,6 @@ public class User extends Model {
 	public Date firstLogin = null;
 	public Date lastLogin = null;
 	public Date lastResponded = null;
-	public String backgroundImage = null;
-
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="owner")
 	public List<Item> items = new ArrayList<Item>();
 
@@ -80,6 +78,5 @@ public class User extends Model {
 		this.location = twUser.getLocation();
 		this.description = twUser.getDescription();
 		this.twitterId = twUser.getId();
-		this.backgroundImage = twUser.getProfileBackgroundImageUrl() == null ? "http://si0.twimg.com/images/themes/theme1/bg.png" : twUser.getProfileBackgroundColor();
 	}
 }
