@@ -40,7 +40,6 @@ public class User extends Model {
 	public Date firstLogin = null;
 	public Date lastLogin = null;
 	public Date lastResponded = null;
-
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="owner")
 	public List<Item> items = new ArrayList<Item>();
 
