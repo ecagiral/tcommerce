@@ -1,5 +1,6 @@
 {
 	"item": "${comment?.item?.id}",
     "text": "${comment?.commentText}",
+    "ownerPic": "${comment?.owner?.picture}",
     "error": "${error}"
 }

@@ -101,10 +101,8 @@ function Comment(comment, itemId){
 			alert(data.error);	
 		}else{
 			//console.log("comment : \""+data.text+"\" added to item : "+data.item);
-			var html = parseTemplate($("#commentTemplate").html(), 
-			           {comment: data});
-			$(html).fadeIn("slow")
-			.appendTo(".commentContainer");
+			var html = parseTemplate($("#commentTemplate").html(), {comment: data});
+			$(html).fadeIn("slow").appendTo(".commentContainer");
 			$("#commentText").val("");
 		}
 		
