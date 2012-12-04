@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -31,6 +33,9 @@ public class Item extends Model{
 	
 	public int price;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date date;
+	
 	@ManyToOne
 	public SearchKey searchKey;
 	
@@ -49,6 +54,7 @@ public class Item extends Model{
 		this.description = description.toLowerCase();
 		this.picture = picture;
 		this.owner = owner;
+		this.date = new Date();
 		SearchKey searchKey = SearchKey.find("byKeyName", key).first();
 		if(searchKey==null){
 			searchKey = new SearchKey(key).save();
@@ -66,12 +72,22 @@ public class Item extends Model{
 	public static int getUniqueVisitorCount(long itemId){
 		int count = 0;
 		try{
-			List<Visitor> visits = User.find("select v.user from Visitor v where v.item.id = ? group by v.user",itemId).fetch();
+			List<User> visits = User.find("select v.user from Visitor v where v.item.id = ? group by v.user",itemId).fetch();
 			count = visits.size();
 		}catch(Exception e){
 			Logger.error("exception on visitor count ", e);
 		}
 		return count;
+	}
+	
+	public List<User> getVisitors(){
+		List<User> visits = new ArrayList<User>();
+		try{
+			visits = User.find("select v.user from Visitor v where v.item = ? group by v.user",this).fetch();
+		}catch(Exception e){
+			Logger.error("exception on visitor count ", e);
+		}
+		return visits;
 	}
 
 }

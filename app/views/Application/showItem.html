@@ -1,7 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Item Details' /}
-<div>
-	<div class="productWindow">
+<div class="row-fluid">
+<div class="span4">
+
 		<div class="productCard" onclick="window.location='/item/${product.id}'" style='cursor: pointer;'>
 			<div class="productImg">
 				<img src="${product.picture}" alt="foto" />
@@ -24,7 +25,7 @@
 			onclick="window.location='<%=request.getContextPath()+"/user.jsp?user="+product.getAnnouncerId()%>'"
 			style='cursor: pointer;'>
 			<div>
-			<img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
+			<img src="${product.owner.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
 			</div>
 			%{ like = (int)(Math.random() * 30); }%
 			%{ trust = 100 - like}%
@@ -38,30 +39,54 @@
 					style="width: ${like}%"></div>
 			</div>
 		</div>
-	</div>
-	<div style="float:left;margin-left:10px">
-		<div class = "commentContainer">
-			#{list items:product.comments, as: 'comment'}
-				<div class = "commentElement" style=" margin-bottom:10px">
-					<div style="float:left;">
-					<img src="${comment.owner.picture}"> ${comment.commentText}
-					</div>
-					<div style="clear:both;"></div>
-				</div>
-				
-			#{/list}
-		</div>
-		#{if user}
-		<div>
-			<img width="48px" height="48px" src="${user.picture}">
-			<textarea id="commentText" rows="2">Add comment</textarea>
-			<div style="clear:both;"></div>
-			<input style="margin-left:50px" value="Comment" type="button" class="addCommentButton" data-item = "${product.id}" onclick="addComment(${product.id})"/>
-		</div>
+
+</div>
+<div class="span4">
+	<div style="text-align: center"><h2>Comments</h2></div>
+	<div class = "commentContainer">
+		#{list items:product.comments, as: 'comment'}
+			<div class = "commentElement" style="margin-bottom:10px;position:relative">
+				<a href = "@{Application.profile(comment.owner.id)}"><img src="${comment.owner.picture}"></a> 
+				<span>${comment.commentText}</span>
+				<div style="position:absolute;right:20px;bottom:0px">${comment.getTime()}</div>
+			</div>
+			
+		#{/list}
+		#{if product.comments.size() == 0}
+		<div style="text-align: center"><h4>No comment yet</h4></div>
 		#{/if}
-		#{else}
-		login to comment
-		#{/else}
 	</div>
+	#{if user}
+	<div>
+		<img width="48px" height="48px" src="${user.picture}">
+		<textarea id="commentText" rows="2">Add comment</textarea>
+		<div style="clear:both;"></div>
+		<input style="margin-left:50px" value="Comment" type="button" class="addCommentButton" data-item = "${product.id}" onclick="addComment(${product.id})"/>
+	</div>
+	#{/if}
+	#{else}
+	<div style="text-align: center;margin-top:50px;color:red"><h4>Login to Comment</h4></div>
+	#{/else}
+
+</div>
+<div class="span2">
+	<div style="text-align: center"><h2>Visits</h2></div>
+	<div class = "visitorContainer">
+		#{list items:product.getVisitors(), as: 'visitor'}
+			<div class = "commentElement" style="margin-bottom:10px;position:relative">
+				<a href = "@{Application.profile(visitor.id)}"><img src="${visitor.picture}"></a> 
+				<span>${visitor.screenName}</span>
+				<div style="position:absolute;right:0px;bottom:0px">${visitor.visitCount(product)} visits. Latest ${visitor.latestVisit(product)}</div>
+			</div>
+			
+		#{/list}
+		#{if product.getVisitors().size() == 0}
+		<div style="text-align: center"><h4>No visit yet</h4></div>
+		#{/if}
+	</div>
+</div>
+
+<div class="span2">
+</div>
 </div>
 #{commentTemplate /}

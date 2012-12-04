@@ -17,9 +17,12 @@ import javax.persistence.OneToMany;
 
 import org.bouncycastle.util.encoders.Base64;
 
+import ch.qos.logback.access.servlet.Util;
+
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.Codec;
+import util.Common;
 
 @Entity
 public class User extends Model {
@@ -78,5 +81,15 @@ public class User extends Model {
 		this.location = twUser.getLocation();
 		this.description = twUser.getDescription();
 		this.twitterId = twUser.getId();
+	}
+	
+	public String latestVisit(Item item){
+		Visitor visit = Visitor.find("item = ? and user = ? order by date desc", item,this).first();
+		return Common.dateSince(visit.date.getTime());
+	}
+	
+	public int visitCount(Item item){
+		Long visits = Visitor.count("item = ? and user = ?", item,this);
+		return visits.intValue();
 	}
 }
