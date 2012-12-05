@@ -1,4 +1,8 @@
-#{extends 'main.html' /} #{set title: 'Profile' /}
+#{extends 'main.html' /}
+#{set title: 'Profile' /}
+
+<script src="@{'/public/javascripts/jquery.imagesloaded.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jquery.masonry.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 
 <div class="container-fluid">
 	<div class="row-fluid" id="profile-content-wrap">
@@ -14,18 +18,32 @@
 
 
 		</div>
-		<div class="profile-user">
-			<ul id="myTab" class="nav nav-pills">
+		<div class="profile-section">
+			<ul id="myTab" class="nav nav-pills" style="margin-bottom: 10px;">
 				<li class="active"><a href="#home" data-toggle="tab">Products</a></li>
 				<li class=""><a href="#profile" data-toggle="tab">Settings</a></li>
 			</ul>
 		</div>
+
+		<div id="profileProducts" class="profile-section" style="overflow: hidden;">
+            #{productContainer items:items/}
+		</div>
+		<div id="profileSettings" class="profile-section"
+			style="display: none;">SETTINGS</div>
 	</div>
 </div>
 <div class="span2"></div>
+#{masonary /}
 <script language="javascript">
 	$('#myTab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
+		if ($(this).attr('href') == '#home') {
+			$('#profileSettings').hide();
+			$('#profileProducts').show();
+		} else {
+			$('#profileProducts').hide();
+			$('#profileSettings').show();
+		}
 	});
 </script>

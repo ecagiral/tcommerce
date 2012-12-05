@@ -96,9 +96,16 @@ public class Application extends Controller {
         render("application/index.html",items);
     }
     
-    public static void profile(Long userId){
-    	User profile = User.findById(userId);
-    	render(profile);
+    public static void profile(Long profileId){
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	User user = null;
+    	if(userId!=null){
+    		user = User.findById(userId);
+    		renderArgs.put("user",user);
+    	}
+    	User profile = User.findById(profileId);
+    	List<Item> items = Item.findItemsByUser(profile);
+    	render(profile, items);
     }
 
     public static void showUser(Long userId){

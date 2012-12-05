@@ -90,4 +90,10 @@ public class Item extends Model{
 		return visits;
 	}
 
+	public static List<Item> findItemsByUser(User owner) {
+		List<Item> itemList = new ArrayList<Item>();
+		itemList = Item.find("byOwner", owner).fetch();
+		return itemList;
+	}
+
 }
