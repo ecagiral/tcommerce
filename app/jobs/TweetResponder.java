@@ -12,13 +12,15 @@ public class TweetResponder extends Job {
 	@Override
 	public void doJob() {
 		Tweet tweet = Tweet.getTweet2Ads();
-		int level = GraphDatabase.findConnectionBetweet(tweet.item.owner.twitterId,
-				tweet.owner.twitterId);
-		if (tweet != null
-				&& (tweet.item.owner.adsTweetLevel.getLevel() == -1 || (tweet.item.owner.adsTweetLevel
-						.getLevel() <= level && tweet.item.owner.adsTweetLevel
-						.getLevel() > 0))) {
+		if (tweet != null) {
+			int level = GraphDatabase.findConnectionBetweet(
+					tweet.item.owner.twitterId, tweet.owner.twitterId);
+			if (tweet != null
+					&& (tweet.item.owner.adsTweetLevel.getLevel() == -1 || (tweet.item.owner.adsTweetLevel
+							.getLevel() <= level && tweet.item.owner.adsTweetLevel
+							.getLevel() > 0))) {
 
+			}
 		}
 	}
 }

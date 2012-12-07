@@ -31,8 +31,6 @@ public class Item extends Model{
 	@ManyToOne
 	public User owner;
 	
-	public int price;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date date;
 	
@@ -50,8 +48,8 @@ public class Item extends Model{
 	@OneToMany(mappedBy="item")
 	public List<Visitor> visitors;
 	
-	public Item(String description, String picture, String key, User owner, int price){
-		this.description = description.toLowerCase();
+	public Item(String description, String picture, String key, User owner){
+		this.description = description;
 		this.picture = picture;
 		this.owner = owner;
 		this.date = new Date();
@@ -94,6 +92,20 @@ public class Item extends Model{
 		List<Item> itemList = new ArrayList<Item>();
 		itemList = Item.find("byOwner", owner).fetch();
 		return itemList;
+	}
+
+	public static void deleteById(Long itemId) {
+		delete("id = ?", itemId);
+	}
+
+	public void update(String description, String fullUrl, String keyword) {
+		this.description = description;
+		SearchKey searchKey = SearchKey.find("byKeyName", keyword).first();
+		if(searchKey==null){
+			this.searchKey = new SearchKey(keyword).save();
+		}
+		this.picture = fullUrl;
+		this.save();
 	}
 
 }

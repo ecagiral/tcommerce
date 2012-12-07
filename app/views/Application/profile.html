@@ -26,7 +26,7 @@
 		</div>
 
 		<div id="profileProducts" class="profile-section" style="overflow: hidden;">
-            #{productContainer items:items/}
+            #{profileProductContainer items:items/}
 		</div>
 		<div id="profileSettings" class="profile-section"
 			style="display: none;">SETTINGS</div>
@@ -46,4 +46,13 @@
 			$('#profileSettings').show();
 		}
 	});
+	
+	#{if user!= null && user.id == profile.id}
+		$(".productWindow").hover(function(e){
+			$(this).children(".actions").show();
+		});
+		$(".productWindow").mouseleave(function(e){
+			$(this).children(".actions").hide();
+		});
+	#{/if}
 </script>

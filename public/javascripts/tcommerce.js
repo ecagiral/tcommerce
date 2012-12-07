@@ -6,6 +6,7 @@
 	comment.add();
 }*/
 
+
 $.postJSON = function(url, data, callback) {
     return $.ajax({
         'type' : 'POST',
@@ -64,29 +65,6 @@ function getCookie(c_name) {
 	return "";
 }
 
-
-
-/*function Comment(comment, userId, productId){
-	this.comment = comment;
-	this.announcerId = userId;
-	this.productId = productId;
-	
-	this.add = function(){
-		$.postJSON(ctx + "/rest/announcers/comment", this, this.add_CallBack);
-	};
-	
-	this.add_CallBack = function (data){
-		var html = parseTemplate($("#commentTemplate").html(), 
-		           {comment: data});
-		$(html).fadeIn("slow")
-		.appendTo("#commentContainer");
-		$("#message").val("");
-	};
-}*/
-
-
-//////////////////ERMAN
-
 function Comment(comment, itemId){
 	this.text = comment;
 	this.itemId = itemId;
@@ -114,3 +92,6 @@ function addComment(item){
 	var comment = new Comment(text,item);
 	comment.add();
 }
+
+
+

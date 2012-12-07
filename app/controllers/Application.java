@@ -55,10 +55,14 @@ public class Application extends Controller {
     	render(product);
     }
     
-    public static void addItem(String description, String price, String keyword, File picture){
-    	int princeInt = Integer.parseInt(price);
+    public static void addItem(Long id, String description, String keyword, File picture){
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	User user = null;
+    	if(userId!=null){
+    		user = User.findById(userId);
+    		renderArgs.put("user",user);
+    	}
     	String generatedFileName = util.Codec.sha1_hex(UUID.randomUUID()+ String.valueOf(Calendar.getInstance().getTimeInMillis()));
-    	
     	String fileName = generatedFileName + ".jpg";
     	try {
 			FileUtils.moveFile(picture, new File(Start.getImagePath() + fileName));
@@ -66,10 +70,17 @@ public class Application extends Controller {
 			e.printStackTrace();
 		}
     	String fullUrl = request.current().getBase() + "/image/" + fileName;
-    	Long userId = Cache.get(session.getId(), Long.class);
-        User owner =  User.findById(userId);
-    	new Item(description,fullUrl,keyword,owner,princeInt).save();
-    	index();
+    	if(id == null){
+	    	new Item(description,fullUrl,keyword,user).save();
+	    	index();
+    	}
+    	else{
+    		Item product = Item.findById(id);
+    		if(product != null){
+    			product.update(description,fullUrl,keyword);
+    		}
+    		render("application/showItem.html", product);
+    	}
     }
     
     public static void displayImage(String imageName){
@@ -108,12 +119,21 @@ public class Application extends Controller {
     	render(profile, items);
     }
 
-    public static void showUser(Long userId){
-
-    }
-
-    public static void showUserItems(Long userId){
-
+    
+    public static void deleteItem(Long itemId){
+    	Long userId = Cache.get(session.getId(), Long.class);
+    	Item item = Item.findById(itemId);
+    	User user = null;
+    	if(userId!=null){
+    		user = User.findById(userId);
+    		renderArgs.put("user",user);
+    	}
+    	if(item.owner.id.equals(userId)){
+    		item.delete();
+    	}
+    	List<Item> items = Item.findItemsByUser(item.owner);
+    	User profile = item.owner;
+    	render("application/profile.html", profile, items);
     }
     
     public static void sendtweet(){

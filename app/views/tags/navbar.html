@@ -2,7 +2,7 @@
 	<div class="navbar-inner">
 
 		<!-- Your site name for the upper left corner of the site -->
-		<a class="brand" href="<%=request.getContextPath()%>">t-commerce</a>
+		<a class="brand" href="@{Application.index()}">t-commerce</a>
 		<ul class="nav" id="topNav">
 			<li><a href="/">Home</a></li> #{if _user}
 			<li><a href="#addProductModal" data-toggle="modal"

@@ -27,15 +27,15 @@
         </div>
         <div class="clear"></div>
         <div class="cardUser"
-            onclick="window.location='<%=request.getContextPath()+"/user.jsp?user="+product.getAnnouncerId()%>'"
+            onclick="window.location='@{Application.profile(product.owner.id)}'"
             style='cursor: pointer;'>
             <div>
-            <img src="${product.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
+            <img src="${product.owner.picture}" alt="foto" /> <span class="name">${product.owner.screenName}</span>
             </div>
             %{ like = (int)(Math.random() * 30); }%
             %{ trust = 100 - like}%
             <div>
-                <p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">Seller Rating ${trust}%</span></p>
+                <p style="text-align: right; margin-bottom: 1px; padding-bottom: 1px;"><span class="comment">User Rating ${trust}%</span></p>
             </div>
             <div class="video-extras-sparkbars" style="margin-bottom: 2px;">
                 <div class="video-extras-sparkbar-likes"
