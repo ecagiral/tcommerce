@@ -38,6 +38,25 @@ Item(item2):
     picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
     owner: engin
     searchKey: new_bicycle
+
+Item(item3):
+    description: "i am selling my guitar"
+    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    owner: engin
+    searchKey: new_bicycle    
+    
+Item(item4):
+    description: "i am selling my guitar"
+    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    owner: engin
+    searchKey: new_bicycle
+
+Item(item5):
+    description: "i am selling my guitar"
+    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    owner: engin
+    searchKey: new_bicycle
+
     
 Tweet(fake):
     tweetId: 274527182267748352

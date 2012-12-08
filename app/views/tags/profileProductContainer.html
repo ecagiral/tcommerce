@@ -7,8 +7,9 @@
 #{list _items, as:'product'}
     <div class="productWindow"  style="width: 220px;">
         <div class="actions">
-            	<a class="btn btn-primary btn-mini" href="@{Application.deleteItem(product.id)}">Edit</a>
-            	<a class="btn btn-danger btn-mini" href="@{Application.deleteItem(product.id)}">Delete</a>
+        	<a class="btn btn-primary btn-mini productEditBtn" data="${product.id}">Edit</a>
+            <a class="btn btn-danger btn-mini" href="@{Application.deleteItem(product.id)}">Delete</a>
+            	
         </div>
         <div class="productCard"
             onclick="window.location='/item/${product.id}'"

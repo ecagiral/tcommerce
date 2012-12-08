@@ -11,21 +11,20 @@
 	<div data-role="modal-body">
 		<div style="margin-left: 10px;">
 		  #{form @Application.addItem(), enctype:'multipart/form-data'}
-		  	    <input type="hidden" name="id" id="product.id">
 				<fieldset>
 					<div data-role="fieldcontain"
 						class="ui-field-contain ui-body ui-br">
 						<label for="message">Product Description</label>
-						<textarea name="description" id="product.description" rows="8" style="width: 90%;"></textarea>
+						<textarea name="description" rows="8" style="width: 90%;"></textarea>
 					</div>
 					<div data-role="fieldcontain"
 						class="ui-field-contain ui-body ui-br">
 						<label for="keyword">Keywords</label> <input type="text"
-							name="keyword" id="product.keywords" />
+							name="keyword" />
 					</div>
 					<div data-role="fieldcontain">
 						<label for="image">Picture</label> <input type="file"
-							id="picture" name="picture" id="product.picture" value="Upload" />
+							id="picture" name="picture" value="Upload" />
 					</div>
 					<div data-role="fieldcontain"
 						class="ui-field-contain ui-body ui-br">

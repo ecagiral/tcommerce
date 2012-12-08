@@ -104,8 +104,14 @@ public class Item extends Model{
 		if(searchKey==null){
 			this.searchKey = new SearchKey(keyword).save();
 		}
-		this.picture = fullUrl;
+		if(fullUrl != null){
+			this.picture = fullUrl;
+		}
 		this.save();
+	}
+	
+	public void update(String description, String keyword){
+		update(description, null, keyword);
 	}
 
 }

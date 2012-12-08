@@ -1,11 +1,13 @@
-/*function addComment(){
-	var commentText = $("#message").val();
-	var announcerId = $("#comment-announcer-id").val();
-	var productId = $("#comment-product-id").val();
-	var comment = new Comment(commentText, announcerId, productId);
-	comment.add();
-}*/
 
+$(document).ready(function() {
+	$(".productEditBtn").click(
+			function(e){
+				$('#updateProductModal').modal('show');
+				var data = $(this).attr('data');
+				$.postJSON("/application/itemData",{id: data}, itemData_CallBack);
+			}
+	);
+});
 
 $.postJSON = function(url, data, callback) {
     return $.ajax({
@@ -22,9 +24,15 @@ function error_callback(XMLHttpRequest, textStatus, errorThrown){
 	alert(errorThrown);
 }
 
-
 function showAddProductModal(){
 	$("#addProductModal").modal().show();
+}
+
+function itemData_CallBack(data){
+	console.log(data);
+	$("#product-description").val(data.description);
+	$("#product-keywords").val(data.searchKey);
+	$("#product-id").val(data.id);
 }
 
 function getCookie(c_name)
