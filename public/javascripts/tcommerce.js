@@ -20,12 +20,12 @@ $.postJSON = function(url, data, callback) {
     });
 };
 
-function error_callback(XMLHttpRequest, textStatus, errorThrown){
-	alert(errorThrown);
+function showAddProductModal(){
+	$('#addProductModal').modal('show');
 }
 
-function showAddProductModal(){
-	$("#addProductModal").modal().show();
+function error_callback(XMLHttpRequest, textStatus, errorThrown){
+	alert(errorThrown);
 }
 
 function itemData_CallBack(data){

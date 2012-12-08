@@ -21,15 +21,21 @@
 		<div class="profile-section">
 			<ul id="myTab" class="nav nav-pills" style="margin-bottom: 10px;">
 				<li class="active"><a href="#home" data-toggle="tab">Products</a></li>
-				<li class=""><a href="#profile" data-toggle="tab">Settings</a></li>
+				#{if user!= null && user.id == profile.id}
+					<li class=""><a href="#profile" data-toggle="tab">Settings</a></li>
+				#{/if}
 			</ul>
 		</div>
 
 		<div id="profileProducts" class="profile-section" style="overflow: hidden;">
             #{profileProductContainer items:items/}
 		</div>
-		<div id="profileSettings" class="profile-section"
-			style="display: none;">SETTINGS</div>
+		#{if user!= null && user.id == profile.id}
+			<div id="profileSettings" class="profile-section"
+				style="display: none;">
+				#{settings user:profile/}
+			</div>
+		#{/if}
 	</div>
 </div>
 <div class="span2"></div>

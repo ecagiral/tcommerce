@@ -5,6 +5,7 @@ import groovy.lang.Closure;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import models.AdsTweetLevel;
 import models.User;
 
 import play.templates.FastTags;
@@ -20,5 +21,20 @@ public class UserTags extends FastTags {
 		} else {
 			out.println(user.fullName);
 		}
+	}
+	
+	public static void _adslevel(Map<?,?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine){
+		StringBuilder sb = new StringBuilder();
+		User user = (User) args.get("arg");
+		sb.append("<select name=\"adsTweetLevel\">");
+		for(AdsTweetLevel tweetLevel : AdsTweetLevel.values()){
+			sb.append("<option value=\"").append(tweetLevel).append("\"");
+			if(tweetLevel.equals(user.adsTweetLevel)){
+				sb.append(" selected = \"selected\"");
+			}
+			sb.append(">").append(tweetLevel.description).append("</option>");
+		}
+		sb.append("</select>");
+		out.println(sb.toString());
 	}
 }

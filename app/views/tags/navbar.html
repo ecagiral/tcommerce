@@ -4,9 +4,10 @@
 		<!-- Your site name for the upper left corner of the site -->
 		<a class="brand" href="@{Application.index()}">t-commerce</a>
 		<ul class="nav" id="topNav">
-			<li><a href="/">Home</a></li> #{if _user}
-			<li><a href="#addProductModal" data-toggle="modal"
-				data-target="#addProductModal">Add Product</a></li> #{/if}
+			<li><a href="/">Home</a></li> 
+			#{if _user}
+				<li><a onclick="showAddProductModal();" style="cursor: pointer;">Add Product</a></li> 
+			#{/if}
 		</ul>
 		#{form @Application.search(), class:'navbar-search pull-center',
 		style:'margin-left: 15%;'}

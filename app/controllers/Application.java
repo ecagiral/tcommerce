@@ -191,4 +191,21 @@ public class Application extends Controller {
 		Comment comment = new Comment(user, text, item).save();
 		render(comment);
 	}
+	
+	public static void updateSettings(AdsTweetLevel adsTweetLevel){
+		Long userId = Cache.get(session.getId(), Long.class);
+		if (userId != null) {
+			User user = User.findById(userId);
+			user.adsTweetLevel = adsTweetLevel;
+			user.save();
+			renderArgs.put("activeProfileTab", "settings");
+			List<Item> items = Item.findItemsByUser(user);
+			User profile = user;
+			render("application/profile.html", profile, items);
+		}
+		else{
+			index();
+		}
+		
+	}
 }
