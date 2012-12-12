@@ -100,12 +100,18 @@ function Item(){
 		$.postJSON("/application/showProductTweets",{productId: itemId}, this.tweet_CallBack);
 	}
 	
-	this.displayTweets = function(tweets){
-		console.log(tweets);
+	this.tweet_CallBack = function(data){
+		displayTweets(data);
 	}
 	
-	this.tweet_CallBack = function(data){
-		this.displayTweets(data);
+	function displayTweets(tweets){
+		var tweetListHtml = "";
+		for(tweet in tweets){
+			var html = parseTemplate($("#tweetTemplate").html(), {tweet: tweet});
+			tweetListHtml += html;
+		}
+		var html = parseTemplate($("#tweetListTemplate").html(),{list:tweetListHtml});
+		$("#tweetList").append(html);
 	}
 }
 

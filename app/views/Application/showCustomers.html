@@ -17,7 +17,27 @@
            #{/list}
          </ul>  
     </div>
-    <div class="span7" style="height: 100%;">
-        
+    <div class="span7" style="height: 100%;" id="tweetList">
+        #{if itemList.size() == 0}
+        	<h1>We could not find any tweet yet</h1>
+        #{/if}
+        #{else}
+        		%{firstItem = itemList.get(0)}%
+        	 <ul>
+        	 	#{list firstItem.tweets, as:'tweet'}
+        	 		<li>${tweet.tweet}</li>
+        	 	#{/list}
+        	 </ul>
+        #{/else}
     </div>
 </div>
+<script id="tweetTemplate">
+	<li>
+		<#=tweet.tweet#>
+	</li>
+</script>
+<script id="tweetListTemplate>
+	<ul>
+		<#=list#>
+	</ul>
+</script>
