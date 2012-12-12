@@ -10,4 +10,5 @@ mkdir $TCOMMERCE_PROD
 cp -R $TCOMMERCE_SRC/* $TCOMMERCE_PROD/
 rm $TCOMMERCE_PROD/README.md
 rm $TCOMMERCE_PROD/build.sh
+sed 's/application.mode=dev/application.mode=prod/' $TCOMMERCE_PROD/conf/application.conf
 $PLAY start 9010 $TCOMMERCE_PROD
