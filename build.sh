@@ -3,6 +3,7 @@ PLAY=$PLAY_HOME/play
 TCOMMERCE_SRC=/home/tcommerce/tcommerce
 TCOMMERCE_PROD=/home/tcommerce/tcommerce_prod
 
+cd $TCOMMERCE_PROD
 $PLAY stop $TCOMMERCE_PROD
 git pull
 rm -Rf $TCOMMERCE_PROD
