@@ -10,7 +10,7 @@
         <ul class="nav nav-list customerSideBar">
            #{list itemList, as:'product'}
                    <li>
-                       <a><img width="48" height="48" src="${product.picture}">
+                       <a onclick='showProductTweets(${product.id});''><img width="48" height="48" src="${product.picture}">
                             #{tc.user.shortenDesc product.description /}
                        </a>
                    </li>

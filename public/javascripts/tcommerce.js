@@ -95,10 +95,28 @@ function Comment(comment, itemId){
 	};
 }
 
+function Item(){
+	this.getTweets = function(itemId){
+		$.postJSON("/application/showProductTweets",{productId: itemId}, this.tweet_CallBack);
+	}
+	
+	this.displayTweets = function(tweets){
+		console.log(tweets);
+	}
+	
+	this.tweet_CallBack = function(data){
+		this.displayTweets(data);
+	}
+}
+
 function addComment(item){
 	var text = $("#commentText").val();
 	var comment = new Comment(text,item);
 	comment.add();
+}
+function showProductTweets(productId){
+	var item = new Item();
+	item.getTweets(productId);
 }
 
 

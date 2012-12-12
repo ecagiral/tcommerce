@@ -209,4 +209,23 @@ public class Application extends Controller {
 			index();
 		}
 	}
+	
+	public static void showProductTweets(Long productId){
+		Item item = Item.findById(productId);
+		if(item != null){
+			Long userId = Cache.get(session.getId(), Long.class);
+			if(item.owner.id == userId){
+				List<Tweet> tweetList = item.tweets;
+				renderJSON(TweetJson.toTweetJsonList(tweetList));
+			}
+			else{
+				String error = "You are not allowed to execute this request";
+				render(error);
+			}
+		}
+		else{
+			String error = "This product does not exist.";
+			render(error);
+		}
+	}
 }
