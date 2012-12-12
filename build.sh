@@ -11,4 +11,5 @@ cp -R $TCOMMERCE_SRC/* $TCOMMERCE_PROD/
 rm $TCOMMERCE_PROD/README.md
 rm $TCOMMERCE_PROD/build.sh
 sed 's/application.mode=dev/application.mode=prod/' $TCOMMERCE_PROD/conf/application.conf
-$PLAY start -Dhttp.port=9010 $TCOMMERCE_PROD
+cd $TCOMMERCE_PROD
+$PLAY start -Dhttp.port=9010
