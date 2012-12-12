@@ -58,7 +58,7 @@ Item(item5):
     searchKey: new_bicycle
 
     
-Tweet(fake):
+Tweet(fake1):
     tweetId: 274527182267748352
     tweet: "i need a new guitar. or an electric one. whichever works."
     owner: engin
@@ -66,11 +66,19 @@ Tweet(fake):
     responded: false
     created: "2010-02-02"
 
-Tweet(fake):
+Tweet(fake2):
     tweetId: 239702511320182784
     tweet: "i need a new guitar. or an electric one. whichever works."
     owner: kutyar
     item: item2
     responded: false
-    created: "2010-02-02"    
+    created: "2010-02-02"  
+    
+Tweet(fake3):
+    tweetId: 239702511320182785
+    tweet: "customer test page."
+    owner: engin
+    item: item3
+    responded: false
+    created: "2010-02-02"  
     
