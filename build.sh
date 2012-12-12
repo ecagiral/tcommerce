@@ -15,5 +15,5 @@ rm $TCOMMERCE_PROD/README.md
 rm $TCOMMERCE_PROD/build.sh
 sed 's/application.mode=dev/application.mode=prod/' -i $TCOMMERCE_PROD/conf/application.conf
 cd $TCOMMERCE_PROD
-
+$PLAY deps
 $PLAY start -Dhttp.port=9010
