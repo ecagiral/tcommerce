@@ -20,46 +20,46 @@
 		</div>
 		<div class="profile-section">
 			<ul id="myTab" class="nav nav-pills" style="margin-bottom: 10px;">
-				<li class="active"><a href="#home" data-toggle="tab">Products</a></li>
+				<li class="active"><a href="#products" data-toggle="tab" id="productsTab" onclick="window.location='@{Application.profile(user.id)}'">Products</a></li>
 				#{if user!= null && user.id == profile.id}
-					<li class=""><a href="#profile" data-toggle="tab">Settings</a></li>
+					<li class=""><a href="#settings" data-toggle="tab" id="settingsTab">Settings</a></li>
 				#{/if}
 			</ul>
-		</div>
-
-		<div id="profileProducts" class="profile-section" style="overflow: hidden;">
-            #{profileProductContainer items:items/}
-		</div>
-		#{if user!= null && user.id == profile.id}
-			<div id="profileSettings" class="profile-section"
-				style="display: none;">
-				#{settings user:profile/}
+			<div class="tab-content">
+			     <div id="products" class="tab-pane active" style="overflow: hidden;">
+                    #{profileProductContainer items:items/}
+                  </div>
+                  #{if user!= null && user.id == profile.id}
+                    <div id="settings" class="tab-pane">
+                        #{settings user:profile/}
+                    </div>
+                  #{/if}
 			</div>
-		#{/if}
+		</div>
 	</div>
 </div>
 <div class="span2"></div>
+<script language="javascript">
+$(function() { 
+	  $('a[data-toggle="tab"]').on('shown', function (e) {
+	    //save the latest tab; use cookies if you like 'em better:
+	    localStorage.setItem('lastTab', $(e.target).attr('id'));
+	  });
+
+	  //go to the latest tab, if it exists:
+	  var lastTab = localStorage.getItem('lastTab');
+	  if (lastTab) {
+	      $('#'+lastTab).tab('show');
+	  }
+	});
+    #{if user!= null && user.id == profile.id}
+	    $(".productWindow").hover(function(e){
+	    	   $(this).children(".actions").show();
+	    });
+	    $(".productWindow").mouseleave(function(e){
+	    	   $(this).children(".actions").hide();
+	    });
+    #{/if}
+</script>
 #{updateProduct user:user/}
 #{masonary /}
-<script language="javascript">
-	$('#myTab a').click(function(e) {
-		e.preventDefault();
-		$(this).tab('show');
-		if ($(this).attr('href') == '#home') {
-			$('#profileSettings').hide();
-			$('#profileProducts').show();
-		} else {
-			$('#profileProducts').hide();
-			$('#profileSettings').show();
-		}
-	});
-	
-	#{if user!= null && user.id == profile.id}
-		$(".productWindow").hover(function(e){
-			$(this).children(".actions").show();
-		});
-		$(".productWindow").mouseleave(function(e){
-			$(this).children(".actions").hide();
-		});
-	#{/if}
-</script>

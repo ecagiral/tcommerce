@@ -37,7 +37,8 @@ body {
 	width: 240px;
 	margin-bottom: 10px;
 	margin-top: 10px;
-	margin-left: 5px; background-color : #FFF;
+	margin-left: 5px;
+	background-color: #FFF;
 	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 	font-size: 11px;
 	background-color: #FFF;
@@ -133,10 +134,6 @@ span.comment {
 
 .video-extras-sparkbars {
 	margin-top: 3px;
-}
-
-.form { .rounded-corners;
-	background-color: white;
 }
 
 .profile-user {
@@ -241,7 +238,7 @@ s {
 	margin-bottom: 2px;
 }
 
-.form { .rounded-corners;
+.form {
 	background-color: white;
 }
 
@@ -258,4 +255,30 @@ s {
 	text-align: center;
 	margin-top: 5px;
 	display: none;
+}
+
+.customerSideBar {
+	margin: 30px 0 10px 10px;
+	padding: 0;
+	background-color: white;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+}
+
+.customerSideBar>.active>a {
+	position: relative;
+	z-index: 2;
+	padding: 9px 15px;
+	border: 0;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .15);
+	-webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0
+		rgba(0, 0, 0, .1);
+	-moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0
+		rgba(0, 0, 0, .1);
+	box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0
+		rgba(0, 0, 0, .1);
 }

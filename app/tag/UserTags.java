@@ -37,4 +37,20 @@ public class UserTags extends FastTags {
 		sb.append("</select>");
 		out.println(sb.toString());
 	}
+	
+	public static void _shortenDesc(Map<?,?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine){
+		String description = (String) args.get("arg");
+		if(description != null){
+			if( description.length() > 120){
+				out.println(description.substring(120) + "...");
+			}
+			else{
+				out.println(description);
+			}
+			
+		}
+		else{
+			out.println("");
+		}
+	}
 }

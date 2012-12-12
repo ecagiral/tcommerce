@@ -4,6 +4,7 @@ import graph.GraphDatabase;
 
 import java.io.File;
 
+import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -13,7 +14,9 @@ public class Start extends Job {
 	private static final String FS = System.getProperty("file.separator");
 	public void doJob(){
 		createImageFolder();
-		GraphDatabase.startGraphDatabase();
+		if(!Play.configuration.get("application.mode").equals("dev")){
+			GraphDatabase.startGraphDatabase();
+		}
 	}
 	
 	private void createImageFolder(){

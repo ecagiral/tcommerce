@@ -17,9 +17,9 @@ GET /image/{imageName}                          Application.displayImage
 
 GET /item/{itemId}								Application.showItem
 
-GET /profile/{profileId}								Application.profile
+GET /profile/{profileId}						Application.profile
 
-GET /sendtweet									Application.sendtweet
+GET /customers								    Application.showCustomers
 
 POST /addComment								Application.addComment
 

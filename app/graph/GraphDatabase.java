@@ -105,6 +105,9 @@ public class GraphDatabase {
 	}
 
 	public static int findConnectionBetweet(long from, long to) {
+		if(graphdb == null){
+			return -1;
+		}
 		Index<Node> usersIndex = graphdb.index().forNodes(USER_ID);
 		Node fromNode = usersIndex.get(USER_ID, from).getSingle();
 		Node toNode = usersIndex.get(USER_ID, to).getSingle();

@@ -24,14 +24,13 @@ import models.*;
 
 @With({ Auth.class })
 public class Application extends Controller {
-
 	public static void index() {
 		List<Item> items = Item.findAll();
 		Long userId = Cache.get(session.getId(), Long.class);
 		if (userId != null) {
 			renderArgs.put("user", User.findById(userId));
 		}
-		render("application/index.html", items);
+		render(items);
 	}
 
 	public static void showItem(Long itemId) {
@@ -98,9 +97,7 @@ public class Application extends Controller {
 		if (product != null) {
 			product.update(description, fullUrl, keyword);
 		}
-		List<Item> items = Item.findAll();
-		User profile = user;
-		render("application/profile.html", profile, items);
+		profile(userId);
 	}
 
 	public static void itemData(Long id) {
@@ -134,7 +131,6 @@ public class Application extends Controller {
 			render("application/index.html", items);
 		}
 		items = Item.searchTitle(query);
-
 		render("application/index.html", items);
 	}
 
@@ -144,6 +140,7 @@ public class Application extends Controller {
 		if (userId != null) {
 			user = User.findById(userId);
 			renderArgs.put("user", user);
+			
 		}
 		User profile = User.findById(profileId);
 		List<Item> items = Item.findItemsByUser(profile);
@@ -164,10 +161,6 @@ public class Application extends Controller {
 		List<Item> items = Item.findItemsByUser(item.owner);
 		User profile = item.owner;
 		render("application/profile.html", profile, items);
-	}
-
-	public static void sendtweet() {
-		Tweet tweet = Tweet.getTweet2Ads();
 	}
 
 	public static void addComment(Long itemId, String text) {
@@ -198,14 +191,22 @@ public class Application extends Controller {
 			User user = User.findById(userId);
 			user.adsTweetLevel = adsTweetLevel;
 			user.save();
-			renderArgs.put("activeProfileTab", "settings");
-			List<Item> items = Item.findItemsByUser(user);
-			User profile = user;
-			render("application/profile.html", profile, items);
+			profile(userId);
 		}
 		else{
 			index();
 		}
-		
+	}
+	
+	public static void showCustomers(){
+		Long userId = Cache.get(session.getId(), Long.class);
+		if (userId != null) {
+			User user = User.findById(userId);
+			List<Item> itemList = Item.findItemsByUser(user);
+			render(itemList);
+		}
+		else{
+			index();
+		}
 	}
 }

@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title: 'Customers' /}
+
+<div class="row-fluid" style="background-color: white;">
+    <div class="span3" style="border-width: 1px;"><h2 style="text-align: center;">Products</h2></div>
+    <div class="span7" style="border-width: 1px;"><h2 style="text-align: center;">Tweets</h2></div>
+</div>
+<div class="row-fluid" style="background-color: white;">
+    <div class="span3" style="border-width: 1px;">
+        <ul class="nav nav-list customerSideBar">
+           #{list itemList, as:'product'}
+                   <li>
+                       <a><img width="48" height="48" src="${product.picture}">
+                            #{tc.user.shortenDesc product.description /}
+                       </a>
+                   </li>
+           #{/list}
+         </ul>  
+    </div>
+    <div class="span7" style="height: 100%;">
+        
+    </div>
+</div>
