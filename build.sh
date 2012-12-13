@@ -13,7 +13,6 @@ mkdir $TCOMMERCE_PROD
 cp -R $TCOMMERCE_SRC/* $TCOMMERCE_PROD/
 rm $TCOMMERCE_PROD/README.md
 rm $TCOMMERCE_PROD/build.sh
-sed 's/application.mode=dev/application.mode=prod/' -i $TCOMMERCE_PROD/conf/application.conf
 cd $TCOMMERCE_PROD
-$PLAY deps
-$PLAY start -Dhttp.port=9010
+$PLAY deps --sync
+$PLAY run --%prod
