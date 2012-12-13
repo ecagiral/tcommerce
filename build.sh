@@ -15,4 +15,4 @@ rm $TCOMMERCE_PROD/README.md
 rm $TCOMMERCE_PROD/build.sh
 cd $TCOMMERCE_PROD
 $PLAY deps --sync
-$PLAY run --%prod
+$PLAY run --%prod &
