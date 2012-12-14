@@ -106,12 +106,12 @@ function Item(){
 	
 	function displayTweets(tweets){
 		var tweetListHtml = "";
-		for(tweet in tweets){
-			var html = parseTemplate($("#tweetTemplate").html(), {tweet: tweet});
+		for(i in tweets){
+			var html = parseTemplate($("#tweetTemplate").html(), {tweet: tweets[i]});
 			tweetListHtml += html;
 		}
 		var html = parseTemplate($("#tweetListTemplate").html(),{list:tweetListHtml});
-		$("#tweetList").append(html);
+		$("#tweetList").html(html);
 	}
 }
 
@@ -120,9 +120,12 @@ function addComment(item){
 	var comment = new Comment(text,item);
 	comment.add();
 }
-function showProductTweets(productId){
+function showProductTweets(productId, current){
 	var item = new Item();
 	item.getTweets(productId);
+	$(".customerSideBar > .active").attr("class","");
+	$(current).parent().attr("class","active");
+	
 }
 
 

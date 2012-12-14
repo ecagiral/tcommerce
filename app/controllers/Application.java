@@ -201,6 +201,7 @@ public class Application extends Controller {
 	public static void showCustomers(){
 		Long userId = Cache.get(session.getId(), Long.class);
 		if (userId != null) {
+			renderArgs.put("user", User.findById(userId));
 			User user = User.findById(userId);
 			List<Item> itemList = Item.findItemsByUser(user);
 			render(itemList);
@@ -211,9 +212,9 @@ public class Application extends Controller {
 	}
 	
 	public static void showProductTweets(Long productId){
+		Long userId = Cache.get(session.getId(), Long.class);
 		Item item = Item.findById(productId);
 		if(item != null){
-			Long userId = Cache.get(session.getId(), Long.class);
 			if(item.owner.id == userId){
 				List<Tweet> tweetList = item.tweets;
 				renderJSON(TweetJson.toTweetJsonList(tweetList));
