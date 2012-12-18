@@ -15,14 +15,14 @@
 	           #{/list} 
 	         </ul>  
 	    </div>
-	    <div class="span8 module" style="height: 100%; padding-right: 10px;" id="tweetList">
+	    <div class="span8 module" style="height: 100%; padding-right: 10px;" >
 	       <h4 class="rounded-title">Tweets</h4>
 	        #{if itemList.size() == 0}
-	        	<h1>We could not find any tweet yet</h1>
+	            <div class="alert alert-error">We could not find any tweet yet</div>
 	        #{/if}
 	        #{else}
 	        		%{firstItem = itemList.get(0)}%
-	        	 <div class="rounded">
+	        	 <div class="rounded" id="tweetList">
 	        	 	#{list firstItem.tweets, as:'tweet'}
 	        	 		<div style="display: block; border-bottom: 1px solid; border-bottom-color: #E8E8E8; padding-top: 3px; padding-bottom: 3px; padding-left: 3px;">
 	        	 		   <div>
@@ -46,13 +46,24 @@
 	    </div>
     </div>
 </div>
-<script id="tweetTemplate">
-	<li>
-		<#=tweet.tweet#>
-	</li>
+<script id="tweetTemplate" type="text/html">
+<div style="display: block; border-bottom: 1px solid; border-bottom-color: #E8E8E8; padding-top: 3px; padding-bottom: 3px; padding-left: 3px;">
+	<div>
+	    <p><a href="/profile/<#=tweet.ownerId#>" target="_blank"> @<#=tweet.ownerScreenName#>: </a>
+	    <p><#=tweet.tweet#></p>
+	</div>
+	<div>
+	    <div style="float:left">
+	        <a class="btn btn-link btn-small">View Replies</a>
+	    </div>
+	    <div style="text-align: right;">
+	         <button class="btn btn-success btn-small">Reply</button>
+	         <a class="btn btn-info btn-small" href="https://twitter.com/eguller/status/<#=tweet.tweetId#>" target="_blank">Show on Twitter</a>
+	    </div>
+	</div>
+</div>
 </script>
-<script id="tweetListTemplate">
-	<ul>
-		<#=list#>
-	</ul>
+
+<script id="noTweetTemplate" type="text/html">
+    <div class="alert alert-error" style="margin-bottom: 0px; text-align: center;">We could not find any tweet yet</div>
 </script>
