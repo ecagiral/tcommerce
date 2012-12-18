@@ -1,5 +1,5 @@
 body {
-	font-family: "helvetica neue", arial, sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #header {
@@ -12,7 +12,6 @@ body {
 }
 
 .bio {
-	font: italic 13px/18px Georgia, "Times New Roman", serif;
 	color: #534F4F;
 	word-wrap: break-word;
 	margin: 0;
@@ -187,6 +186,27 @@ span.comment {
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
+.rounded {
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #E8E8E8;
+}
+
+.module{
+	margin-top: 10px;
+}
+
+
+.rounded-title {
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+    background-color: #E8E8E8;
+    line-height: 42px;
+    padding-left: 10px;
+}
+
 .username {
 	font-size: 18px;
 	font-weight: normal;
@@ -266,4 +286,9 @@ s {
 	-webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .095);
 	-moz-box-shadow: 0 2px 8px rgba(0, 0, 0, .095);
 	box-shadow: 0 2px 8px rgba(0, 0, 0, .095);
+}
+
+#tweetList ul {
+	list-style: none;
+	
 }

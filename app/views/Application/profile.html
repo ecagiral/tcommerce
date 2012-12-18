@@ -20,7 +20,7 @@
 		</div>
 		<div class="profile-section">
 			<ul id="myTab" class="nav nav-pills" style="margin-bottom: 10px;">
-				<li class="active"><a href="#products" data-toggle="tab" id="productsTab" onclick="window.location='@{Application.profile(user.id)}'">Products</a></li>
+				<li class="active"><a href="#products" data-toggle="tab" id="productsTab" onclick="window.location='@{Application.profile(profile.id)}'">Products</a></li>
 				#{if user!= null && user.id == profile.id}
 					<li class=""><a href="#settings" data-toggle="tab" id="settingsTab">Settings</a></li>
 				#{/if}
