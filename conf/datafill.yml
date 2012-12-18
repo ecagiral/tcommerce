@@ -26,6 +26,15 @@ SearchKey(new_guitar):
 
 SearchKey(new_bicycle):
     keyName: "new bicycle"
+    
+SearchKey(new_house):
+    keyName: "new house"
+
+SearchKey(new_car):
+    keyName: "new car"
+
+SearchKey(new_piano):
+    keyName: "new piano"
 
 Item(item1):
     description: "selling bike"
@@ -40,22 +49,22 @@ Item(item2):
     searchKey: new_bicycle
 
 Item(item3):
-    description: "i am selling my guitar"
-    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    description: "i am selling my car"
+    picture: "http://image.motortrend.com/f/oftheyear/car/1301_2013_motor_trend_car_of_the_year_tesla_model_s/41007734+w644+h0/2013-Tesla-Model-S-front-1.jpg"
     owner: engin
-    searchKey: new_bicycle    
+    searchKey: new_car    
     
 Item(item4):
-    description: "i am selling my guitar"
-    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    description: "i am selling my house"
+    picture: "http://www.plu.edu/~allenka/img/House_Front.jpg"
     owner: engin
-    searchKey: new_bicycle
+    searchKey: new_house
 
 Item(item5):
-    description: "i am selling my guitar"
-    picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
+    description: "i am selling my piano"
+    picture: "http://www.steinway.com/img/hero_boston.png"
     owner: engin
-    searchKey: new_bicycle
+    searchKey: new_piano
 
     
 Tweet(fake1):
