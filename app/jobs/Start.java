@@ -20,6 +20,7 @@ public class Start extends Job {
 	private static String IMAGE_PATH = null;
 	private static final String FS = System.getProperty("file.separator");
 	public void doJob(){
+	    configS3();
 		createImageFolder();
 		if(!Play.configuration.get("application.mode").equals("dev")){
 			GraphDatabase.startGraphDatabase();
