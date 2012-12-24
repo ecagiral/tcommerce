@@ -21,7 +21,7 @@ public class SearchKey extends Model{
 	
 	public Date lastSearch;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="searchKey")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="searchKeyList")
 	public List<Item> items = new ArrayList<Item>();
 	
 	public SearchKey(String name){

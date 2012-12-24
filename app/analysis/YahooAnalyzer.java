@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -36,24 +38,35 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import models.Item;
+import models.SearchKey;
 
 public class YahooAnalyzer implements Analyzer {
 	DefaultHttpClient httpclient = new DefaultHttpClient();
 	@Override
 	public AnalysisResult anaylze(Item item) {
-		return null;
+		Query query = queryContentAnalysis(item.description);
+		AnalysisResult analysisResult = new AnalysisResult();
+		for(Entity entity : query.getEntityList()){
+			analysisResult.addSearchKey(new SearchKey(entity.name));
+		}
+		return analysisResult;
 	}
 	
 	public Query queryContentAnalysis(String text){
 		Query query = null;
-		HttpPost post = new HttpPost("http://query.yahooapis.com/v1/public/yql");
-		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-		nvps.add(new BasicNameValuePair("q", "select * from contentanalysis.analyze where text='"+text+"'"));
+		String encodedText = "select * from contentanalysis.analyze where text='"+escape(text)+"'";
+		HttpGet post = new HttpGet("http://query.yahooapis.com/v1/public/yql?q="+encodedText);
+		//List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		
+		//nvps.add(new BasicNameValuePair("q", encodedText));
+		
 		try {
-			post.setEntity(new UrlEncodedFormEntity(nvps));
+			//post.setEntity(new UrlEncodedFormEntity(nvps));
+			System.err.println(post.getRequestLine().getUri());
 			HttpResponse response = httpclient.execute(post);
 			HttpEntity responseEntity = response.getEntity();
 			String responseText = consumeEntity(responseEntity);
+			System.err.println(responseText);
 			query = parseXml(responseText);
 			
 		} catch (UnsupportedEncodingException e) {
@@ -79,10 +92,8 @@ public class YahooAnalyzer implements Analyzer {
 				sb.append(line);
 			}
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return sb.toString();
@@ -147,7 +158,7 @@ public class YahooAnalyzer implements Analyzer {
 	
 	public static void main(String[] args) {
 		YahooAnalyzer analyzer = new YahooAnalyzer();
-		analyzer.queryContentAnalysis("I want to learn how to play guitar. Guitar is a very nice instrument to play. Fender is best guitar brand and very hight quality");
+		analyzer.queryContentAnalysis("I want to learn how to play guitar. Guitar's is a very nice instrument to play. Fender is best guitar brand and very hight quality");
 	}
 	
 	private static class Query{
@@ -160,6 +171,14 @@ public class YahooAnalyzer implements Analyzer {
 		
 		public void addEntity(Entity entity){
 			this.entityList.add(entity);
+		}
+		
+		public List<Entity> getEntityList(){
+			return entityList;
+		}
+		
+		public List<Category> getCategoryList(){
+			return categoryList;
 		}
 		
 		@Override
@@ -204,4 +223,36 @@ public class YahooAnalyzer implements Analyzer {
 		}
 	}
 
+	private static String escape(String text){
+		return text
+		.replace("%", "%25")
+		.replace("/", "%2F")
+		.replace("?", "%3F")
+		.replace("&", "%26")
+		.replace(";", "%3B")
+		.replace(":", "%3A")
+		.replace("@", "%40")
+		.replace(",", "%2C")
+		.replace("$", "%24")
+		.replace("=", "%3D")
+		.replace(" ", "%20")
+		.replace("\"", "%22")
+		.replace("+", "%2B")
+		.replace("#", "%23")
+		.replace("*", "%2A")
+		.replace("<", "%3C")
+		.replace(">", "%3E")
+		.replace("{", "%7B")
+		.replace("}", "%7D")
+		.replace("|", "%7C")
+		.replace("[", "%5B")
+		.replace("]", "%5D")
+		.replace("^", "%5E")
+		.replace("\\", "%5C")
+		.replace("`", "%60")
+		.replace("(", "%28")
+		.replace(")", "%29")
+		.replace("'", "%27");
+		
+	}
 }
