@@ -143,9 +143,16 @@ public class YahooAnalyzer implements Analyzer {
 		}
 	}
 	
-	private static class Category extends Result{}
+	private static class Category extends Result{
+		public Category(String name, double score){
+			super(name,score);
+		}
+	}
 	private static class Entity extends Result {
 		List<String> typeList = new ArrayList<String>();
+		public Entity(String name, double score){
+			super(name,score);
+		}
 	}
 
 }
