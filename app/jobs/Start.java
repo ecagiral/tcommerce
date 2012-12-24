@@ -4,9 +4,16 @@ import graph.GraphDatabase;
 
 import java.io.File;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+
+import play.Logger;
 import play.Play;
+import play.exceptions.ConfigurationException;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
+import util.S3Config;
 
 @OnApplicationStart
 public class Start extends Job {
@@ -31,6 +38,22 @@ public class Start extends Job {
 	
 	public static String getImagePath(){
 		return IMAGE_PATH;
+	}
+	
+	private void configS3(){
+        Logger.info("Starting Amazon s3 client");
+        if (!Play.configuration.containsKey("aws.access.key")) {
+            throw new ConfigurationException("Bad configuration for s3: no access key");
+        } else if (!Play.configuration.containsKey("aws.secret.key")) {
+            throw new ConfigurationException("Bad configuration for s3: no secret key");
+        } else if (!Play.configuration.containsKey("s3.bucket")) {
+            throw new ConfigurationException("Bad configuration for s3: no s3 bucket");
+        }
+        S3Config.s3Bucket = Play.configuration.getProperty("s3.bucket");
+        String accessKey = Play.configuration.getProperty("aws.access.key");
+        String secretKey = Play.configuration.getProperty("aws.secret.key");
+        AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+        S3Config.s3Client = new AmazonS3Client(awsCredentials); 
 	}
 
 }

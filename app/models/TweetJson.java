@@ -6,6 +6,7 @@ import java.util.List;
 
 public class TweetJson {
 	public String ownerId;
+	public String ownerScreenName;
 	public String tweetId;
 	public String tweet;
 	public boolean responded;
@@ -21,6 +22,7 @@ public class TweetJson {
 		this.respondedBy = tweet.respondedBy == null ? null : tweet.respondedBy.id.toString();
 		this.itemId = tweet.item.id.toString();
 		this.created = new Date(tweet.created.getTime());
+		this.ownerScreenName = tweet.owner.screenName;
 	}
 	
 	public static List<TweetJson> toTweetJsonList(List<Tweet> tweetList){

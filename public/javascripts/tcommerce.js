@@ -110,8 +110,13 @@ function Item(){
 			var html = parseTemplate($("#tweetTemplate").html(), {tweet: tweets[i]});
 			tweetListHtml += html;
 		}
-		var html = parseTemplate($("#tweetListTemplate").html(),{list:tweetListHtml});
-		$("#tweetList").html(html);
+		if(tweets.length > 0){
+			$("#tweetList").html(tweetListHtml);
+		}
+		else{
+			var html = parseTemplate($("#noTweetTemplate").html(), {data: ""});
+			$("#tweetList").html(html);
+		}
 	}
 }
 
