@@ -28,7 +28,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.dom4j.Node;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -44,6 +45,7 @@ public class YahooAnalyzer implements Analyzer {
 	}
 	
 	public Query queryContentAnalysis(String text){
+		Query query = null;
 		HttpPost post = new HttpPost("http://query.yahooapis.com/v1/public/yql");
 		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
 		nvps.add(new BasicNameValuePair("q", "select * from contentanalysis.analyze where text='"+text+"'"));
@@ -52,7 +54,8 @@ public class YahooAnalyzer implements Analyzer {
 			HttpResponse response = httpclient.execute(post);
 			HttpEntity responseEntity = response.getEntity();
 			String responseText = consumeEntity(responseEntity);
-			System.out.println(responseText);
+			query = parseXml(responseText);
+			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +66,7 @@ public class YahooAnalyzer implements Analyzer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return query;
 	}
 	
 	private String consumeEntity(HttpEntity reponseEntity){
@@ -85,7 +88,8 @@ public class YahooAnalyzer implements Analyzer {
 		return sb.toString();
 	}
 	
-	private void parseXml(String text){
+	private Query parseXml(String text){
+		Query query = new Query();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 		try {
@@ -96,9 +100,33 @@ public class YahooAnalyzer implements Analyzer {
 		     XPath xpath = xPathfactory.newXPath();
 		     XPathExpression expr = xpath.compile("/query/results/yctCategories/yctCategory");
 		     
-		     NodeList nodeList = (NodeList) expr.evaluate(doc, XPathConstants.STRING);
+		     NodeList nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+		     double score = 0.0;
+		     String categoryStr = "";
 		     for(int i = 0; i < nodeList.getLength(); i ++){
-		    	 Node node = (Node) nodeList.item(i);
+		    	 Element element = (Element) nodeList.item(i);
+		    	 score = Double.parseDouble(element.getAttribute("score"));
+		    	 categoryStr = element.getTextContent();
+		    	 Category category = new Category(categoryStr, score);
+		    	 query.addCategory(category);
+		     }
+		     
+		     expr = xpath.compile("/query/results/entities/entity");
+		     nodeList = (NodeList)expr.evaluate(doc, XPathConstants.NODESET);
+		     for(int i =0; i < nodeList.getLength(); i++){
+		    	 Element element = (Element)nodeList.item(i);
+		    	 score = Double.parseDouble(element.getAttribute("score"));
+		    	 
+		    	 String textValue = element.getElementsByTagName("text").item(0).getTextContent();
+		    	 
+		    	 Entity entity = new Entity(textValue, score);
+		    	 
+		    	 NodeList typeList = (NodeList)element.getElementsByTagName("types");
+		    	 for(int j = 0; j < typeList.getLength(); j++){
+		    		 Element typeElement = (Element)typeList.item(j);
+		    		 entity.addType(typeElement.getTextContent());
+		    	 }
+		    	 query.addEntity(entity);
 		     }
 		     
 		} catch (ParserConfigurationException e) {
@@ -114,7 +142,7 @@ public class YahooAnalyzer implements Analyzer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       
+       return query;
 	}
 	
 	public static void main(String[] args) {
@@ -133,13 +161,30 @@ public class YahooAnalyzer implements Analyzer {
 		public void addEntity(Entity entity){
 			this.entityList.add(entity);
 		}
+		
+		@Override
+		public String toString(){
+			StringBuilder sb = new StringBuilder();
+			sb.append("CategoryList: ").append(categoryList).append(", ");
+			sb.append("EntityList: ").append(entityList);
+			return sb.toString();
+		}
 	}
 	
 	private static class Result {
-		double score;
-		String name;
+		protected double score;
+		protected String name;
 		public Result(String name, double score){
-			
+			this.name = name;
+			this.score = score;
+		}
+		
+		@Override
+		public String toString(){
+			StringBuilder sb = new StringBuilder();
+			sb.append("score: ").append(score).append(", ");
+			sb.append("name: ").append(name);
+			return sb.toString();
 		}
 	}
 	
@@ -152,6 +197,10 @@ public class YahooAnalyzer implements Analyzer {
 		List<String> typeList = new ArrayList<String>();
 		public Entity(String name, double score){
 			super(name,score);
+		}
+		
+		public void addType(String type){
+			this.typeList.add(type);
 		}
 	}
 
