@@ -10,14 +10,13 @@
 				<li><a href="@{Application.showCustomers()}">Customers</a></li>
 			#{/if}
 		</ul>
-		#{form @Application.search(), class:'navbar-search pull-center',
-		style:'margin-left: 15%;'}
+		<form action="@{Application.search()}" class="navbar-search pull-center" method="GET" style="margin-left: 15%;">
 		<div class="input-append">
 			<input type="text" class="search-query" placeholder="Search"
 				name="query"> <span class="add-on"><i
 				class="icon-search"> </i> </span>
 		</div>
-		#{/form}
+		</form>
 		<ul class="nav pull-right">
 			#{if _user}
 			<li class="divider-vertical"></li>
