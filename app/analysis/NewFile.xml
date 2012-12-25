@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng"
+    yahoo:count="2" yahoo:created="2012-12-21T19:57:19Z" yahoo:lang="en-US">
+    <diagnostics>
+        <publiclyCallable>true</publiclyCallable>
+        <user-time>143</user-time>
+        <service-time>140</service-time>
+        <build-version>32943</build-version>
+    </diagnostics> 
+    <results>
+        <yctCategories xmlns="urn:yahoo:cap">
+            <yctCategory score="0.719745">Books &amp; Publishing</yctCategory>
+            <yctCategory score="0.570652">Arts &amp; Entertainment</yctCategory>
+        </yctCategories>
+        <entities xmlns="urn:yahoo:cap">
+            <entity score="0.967253">
+                <text end="140" endchar="140" start="128" startchar="128">Eric Hobsbawm</text>
+                <wiki_url>http://en.wikipedia.com/wiki/Eric_Hobsbawm</wiki_url>
+                <types>
+                    <type region="us">/person</type>
+                    <type region="us">/person/author</type>
+                </types>
+                <related_entities>
+                    <wikipedia>
+                        <wiki_url>http://en.wikipedia.com/wiki/Puran_Chand_Joshi</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Victor_Kiernan</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Socialism_in_India</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Marxist_historiography</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Marxist_analysis</wiki_url>
+                    </wikipedia>
+                </related_entities>
+            </entity>
+            <entity score="0.957409">
+                <text end="187" endchar="187" start="171" startchar="171">Elizabeth Kostova</text>
+                <wiki_url>http://en.wikipedia.com/wiki/Elizabeth_Kostova</wiki_url>
+                <types>
+                    <type region="us">/person</type>
+                </types>
+                <related_entities>
+                    <wikipedia>
+                        <wiki_url>http://en.wikipedia.com/wiki/Carolina_Day_School</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Jane_Austen</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Asheville,_North_Carolina</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Book_talk</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Cullowhee,_North_Carolina</wiki_url>
+                    </wikipedia>
+                </related_entities>
+            </entity>
+            <entity score="0.946911">
+                <text end="93" endchar="93" start="82" startchar="82">Sarah Dunant</text>
+                <wiki_url>http://en.wikipedia.com/wiki/Sarah_Dunant</wiki_url>
+                <types>
+                    <type region="us">/person</type>
+                    <type region="us">/person/author</type>
+                </types>
+            </entity>
+            <entity score="0.924045">
+                <text end="50" endchar="50" start="39" startchar="39">David Browne</text>
+                <wiki_url>http://en.wikipedia.com/wiki/David_Browne</wiki_url>
+                <types>
+                    <type region="us">/person</type>
+                </types>
+                <related_entities>
+                    <wikipedia>
+                        <wiki_url>http://en.wikipedia.com/wiki/Mintel</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Stevia</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/NASUWT</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Malton,_North_Yorkshire</wiki_url>
+                        <wiki_url>http://en.wikipedia.com/wiki/Whole_grain</wiki_url>
+                    </wikipedia>
+                </related_entities>
+            </entity>
+            <entity score="0.904228">
+                <text end="280" endchar="280" start="268" startchar="268">Andras Baneth</text>
+                <types>
+                    <type region="us">/person</type>
+                </types>
+            </entity>
+            <entity score="0.781405">
+                <text end="77" endchar="77" start="64" startchar="64">Transgressions</text>
+            </entity>
+            <entity score="0.591836">
+                <text end="34" endchar="34" start="22" startchar="22">Dream Brother</text>
+                <wiki_url>http://en.wikipedia.com/wiki/Dream_Brother</wiki_url>
+            </entity>
+        </entities>
+    </results>
+</query>
+ 

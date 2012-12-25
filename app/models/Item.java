@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,9 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.codec.binary.Hex;
 
+import analysis.AnalysisResult;
+import analysis.AnalyzerFactory;
+
 import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -23,6 +27,7 @@ import play.db.jpa.Model;
 public class Item extends Model{
 	
 	@Required
+	@Column(length=4096)
 	public String description;
 	
 	@Required
@@ -34,8 +39,8 @@ public class Item extends Model{
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date date;
 	
-	@ManyToOne
-	public SearchKey searchKey;
+	@ManyToMany
+	public List<SearchKey> searchKeys;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="item")
 	public List<Tweet> tweets; 
@@ -48,15 +53,12 @@ public class Item extends Model{
 	@OneToMany(mappedBy="item")
 	public List<Visitor> visitors;
 	
-	public Item(String description, String picture, String key, User owner){
+	public Item(String description, String picture, User owner){
 		this.description = description;
 		this.picture = picture;
 		this.owner = owner;
 		this.date = new Date();
-		SearchKey searchKey = SearchKey.find("byKeyName", key).first();
-		if(searchKey==null){
-			searchKey = new SearchKey(key).save();
-		}
+		this.searchKeys = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeys();
 	}
 	
 	public static Item findItem2Ads(){
@@ -98,11 +100,10 @@ public class Item extends Model{
 		delete("id = ?", itemId);
 	}
 
-	public void update(String description, String fullUrl, String keyword) {
-		this.description = description;
-		SearchKey searchKey = SearchKey.find("byKeyName", keyword).first();
-		if(searchKey==null){
-			this.searchKey = new SearchKey(keyword).save();
+	public void update(String description, String fullUrl) {
+		if(!description.equals(this.description)){
+			this.description = description;
+			this.searchKeys = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeys();
 		}
 		if(fullUrl != null){
 			this.picture = fullUrl;
@@ -110,8 +111,8 @@ public class Item extends Model{
 		this.save();
 	}
 	
-	public void update(String description, String keyword){
-		update(description, null, keyword);
+	public void update(String description){
+		update(description, null);
 	}
 
 }

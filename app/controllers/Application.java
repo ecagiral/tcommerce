@@ -50,13 +50,17 @@ public class Application extends Controller {
 		render(product);
 	}
 
-	public static void addItem(String description, String keyword, File picture) {
+	public static void addItem(String description, File picture) {
 		Long userId = Cache.get(session.getId(), Long.class);
 		User user = null;
-		if (userId != null) {
-			user = User.findById(userId);
-			renderArgs.put("user", user);
+		if (userId == null) {
+			index();
+			return;
 		}
+		
+		user = User.findById(userId);
+		renderArgs.put("user", user);
+		
 		String fullUrl = null;
 		String generatedFileName = util.Codec.sha1_hex(UUID.randomUUID()
 				+ String.valueOf(Calendar.getInstance().getTimeInMillis()));
@@ -68,11 +72,11 @@ public class Application extends Controller {
 			e.printStackTrace();
 		}
 		fullUrl = request.current().getBase() + "/image/" + fileName;
-		new Item(description, fullUrl, keyword, user).save();
+		new Item(description, fullUrl, user).save();
 		index();
 	}
 
-	public static void updateItem(Long id, String description, String keyword,
+	public static void updateItem(Long id, String description,
 			File picture) {
 		Long userId = Cache.get(session.getId(), Long.class);
 		User user = null;
@@ -95,7 +99,7 @@ public class Application extends Controller {
 			fullUrl = request.current().getBase() + "/image/" + fileName;
 		}
 		if (product != null) {
-			product.update(description, fullUrl, keyword);
+			product.update(description, fullUrl);
 		}
 		profile(userId);
 	}

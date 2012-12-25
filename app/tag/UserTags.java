@@ -42,7 +42,7 @@ public class UserTags extends FastTags {
 		String description = (String) args.get("arg");
 		if(description != null){
 			if( description.length() > 120){
-				out.println(description.substring(120) + "...");
+				out.println(description.substring(0,120) + "...");
 			}
 			else{
 				out.println(description);
