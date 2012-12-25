@@ -48,6 +48,10 @@ public class TwitterProxyImpl implements TwitterProxy {
 	}
 
 	public void search(SearchKey searchKey) {
+		if(searchKey.items == null || searchKey.items.size() == 0){
+			searchKey.delete();
+			return;
+		}
 		StringBuilder enchancedQuery = new StringBuilder(searchKey.keyName);
 		enchancedQuery.append(" -http");
 		Query _query = new Query(enchancedQuery.toString());
@@ -83,7 +87,7 @@ public class TwitterProxyImpl implements TwitterProxy {
 				}
 				t.responded = false;
 				t.respondedBy = null;
-				t.item = searchKey.getRandomItem();
+				t.item = searchKey.items.get((int)(searchKey.items.size() * Math.random()));
 				try{
 					if(t.owner != null){
 						t.save();

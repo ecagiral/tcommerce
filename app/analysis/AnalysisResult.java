@@ -6,13 +6,13 @@ import java.util.List;
 import models.SearchKey;
 
 public class AnalysisResult {
-	List<SearchKey> searchKeyList = new ArrayList<SearchKey>();
+	List<SearchKey> searchKeys = new ArrayList<SearchKey>();
 	
 	public void addSearchKey(SearchKey searchKey){
-		this.searchKeyList.add(searchKey);
+		this.searchKeys.add(searchKey);
 	}
 	
-	public List<SearchKey> getSearchKeyList(){
-		return searchKeyList;
+	public List<SearchKey> getSearchKeys(){
+		return searchKeys;
 	}
 }

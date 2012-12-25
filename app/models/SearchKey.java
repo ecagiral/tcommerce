@@ -21,7 +21,7 @@ public class SearchKey extends Model{
 	
 	public Date lastSearch;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="searchKeyList")
+	@ManyToMany(cascade={CascadeType.ALL}, mappedBy="searchKeys")
 	public List<Item> items = new ArrayList<Item>();
 	
 	public SearchKey(String name){
@@ -31,10 +31,4 @@ public class SearchKey extends Model{
 	public static SearchKey getLeastUsed(){
 		return SearchKey.find("order by lastSearch asc").first();
 	}
-	
-	public Item getRandomItem(){
-		List<Item> itemList = Item.find("searchKey = ?1 order by rand()", this).fetch(1);
-		return itemList.size() > 0 ? itemList.get(0) : null;
-	}
-
 }

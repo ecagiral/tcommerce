@@ -35,7 +35,7 @@
 	        	 		       </div>
 	        	 		       <div style="text-align: right;">
                                     <button class="btn btn-success btn-small">Reply</button>
-                                    <a class="btn btn-info btn-small" href="https://twitter.com/eguller/status/${tweet.tweetId}" target="_blank">Show on Twitter</a>
+                                    <a class="btn btn-info btn-small" href="https://twitter.com/${tweet.owner.screenName}/status/${tweet.tweetId}" target="_blank">Show on Twitter</a>
                                </div>
 	        	 		   </div>
 	        	 		   
@@ -58,7 +58,7 @@
 	    </div>
 	    <div style="text-align: right;">
 	         <button class="btn btn-success btn-small">Reply</button>
-	         <a class="btn btn-info btn-small" href="https://twitter.com/eguller/status/<#=tweet.tweetId#>" target="_blank">Show on Twitter</a>
+	         <a class="btn btn-info btn-small" href="https://twitter.com/<#=tweet.ownerScreenName#>/status/<#=tweet.tweetId#>" target="_blank">Show on Twitter</a>
 	    </div>
 	</div>
 </div>

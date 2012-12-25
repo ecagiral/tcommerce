@@ -41,20 +41,30 @@ import models.Item;
 import models.SearchKey;
 
 public class YahooAnalyzer implements Analyzer {
+	private static final double THRESHOLD = 0.8;
 	DefaultHttpClient httpclient = new DefaultHttpClient();
 	@Override
 	public AnalysisResult anaylze(Item item) {
 		Query query = queryContentAnalysis(item.description);
 		AnalysisResult analysisResult = new AnalysisResult();
 		for(Entity entity : query.getEntityList()){
-			analysisResult.addSearchKey(new SearchKey(entity.name));
+			if(entity.score < THRESHOLD){
+				continue;
+			}
+			
+			SearchKey searchKey = SearchKey.find("byKeyName", entity.name).first();
+			if(searchKey == null){
+				searchKey = new SearchKey(entity.name);
+				searchKey.save();
+			}
+			analysisResult.addSearchKey(searchKey);
 		}
 		return analysisResult;
 	}
 	
 	public Query queryContentAnalysis(String text){
 		Query query = null;
-		String encodedText = "select * from contentanalysis.analyze where text='"+escape(text)+"'";
+		String encodedText = "select%20*%20from%20contentanalysis.analyze%20where%20text='"+escape(text)+"'";
 		HttpGet post = new HttpGet("http://query.yahooapis.com/v1/public/yql?q="+encodedText);
 		//List <NameValuePair> nvps = new ArrayList <NameValuePair>();
 		
@@ -130,7 +140,7 @@ public class YahooAnalyzer implements Analyzer {
 		    	 
 		    	 String textValue = element.getElementsByTagName("text").item(0).getTextContent();
 		    	 
-		    	 Entity entity = new Entity(textValue, score);
+		    	 Entity entity = new Entity(wrapQuotes(textValue), score);
 		    	 
 		    	 NodeList typeList = (NodeList)element.getElementsByTagName("types");
 		    	 for(int j = 0; j < typeList.getLength(); j++){
@@ -222,9 +232,15 @@ public class YahooAnalyzer implements Analyzer {
 			this.typeList.add(type);
 		}
 	}
+	
+	private static String wrapQuotes(String key){
+		return "\"" + key +"\"";
+	}
 
 	private static String escape(String text){
 		return text
+	    .replace("'", "\\\'")
+	    .replace("\"", "\\\"")
 		.replace("%", "%25")
 		.replace("/", "%2F")
 		.replace("?", "%3F")
@@ -252,7 +268,10 @@ public class YahooAnalyzer implements Analyzer {
 		.replace("`", "%60")
 		.replace("(", "%28")
 		.replace(")", "%29")
-		.replace("'", "%27");
+		.replace("'", "%27")
+		.replace("\r\n", "%20")
+		.replace("\n", "%20")
+		.replace("\t", "%20");
 		
 	}
 }

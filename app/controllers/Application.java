@@ -53,10 +53,14 @@ public class Application extends Controller {
 	public static void addItem(String description, File picture) {
 		Long userId = Cache.get(session.getId(), Long.class);
 		User user = null;
-		if (userId != null) {
-			user = User.findById(userId);
-			renderArgs.put("user", user);
+		if (userId == null) {
+			index();
+			return;
 		}
+		
+		user = User.findById(userId);
+		renderArgs.put("user", user);
+		
 		String fullUrl = null;
 		String generatedFileName = util.Codec.sha1_hex(UUID.randomUUID()
 				+ String.valueOf(Calendar.getInstance().getTimeInMillis()));

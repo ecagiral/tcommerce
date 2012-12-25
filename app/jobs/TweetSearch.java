@@ -11,7 +11,7 @@ import twitter.TwitterProxyFactory;
 import twitter.TwitterProxyImpl;
 import twitter4j.TwitterFactory;
 
-@Every("10min")
+@Every("30s")
 public class TweetSearch extends Job {
 	@Override
 	public void doJob() {

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TweetJson {
+	public String id;
 	public String ownerId;
 	public String ownerScreenName;
 	public String tweetId;
@@ -16,7 +17,8 @@ public class TweetJson {
 	
 	public TweetJson(Tweet tweet){
 		this.ownerId = tweet.owner.id.toString();
-		this.tweetId = tweet.id.toString();
+		this.id = tweet.id.toString();
+		this.tweetId = String.valueOf(tweet.tweetId);
 		this.tweet = tweet.tweet;
 		this.responded = tweet.responded;
 		this.respondedBy = tweet.respondedBy == null ? null : tweet.respondedBy.id.toString();

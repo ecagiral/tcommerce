@@ -40,7 +40,7 @@ public class Item extends Model{
 	public Date date;
 	
 	@ManyToMany
-	public List<SearchKey> searchKeyList;
+	public List<SearchKey> searchKeys;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="item")
 	public List<Tweet> tweets; 
@@ -58,7 +58,7 @@ public class Item extends Model{
 		this.picture = picture;
 		this.owner = owner;
 		this.date = new Date();
-		this.searchKeyList = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeyList();
+		this.searchKeys = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeys();
 	}
 	
 	public static Item findItem2Ads(){
@@ -103,7 +103,7 @@ public class Item extends Model{
 	public void update(String description, String fullUrl) {
 		if(!description.equals(this.description)){
 			this.description = description;
-			this.searchKeyList = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeyList();
+			this.searchKeys = AnalyzerFactory.createAnalyzer().anaylze(this).getSearchKeys();
 		}
 		if(fullUrl != null){
 			this.picture = fullUrl;
