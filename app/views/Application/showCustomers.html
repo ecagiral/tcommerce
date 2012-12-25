@@ -1,5 +1,10 @@
 #{extends 'main.html' /}
 #{set title: 'Customers' /}
+<!-- Show Reply Modal Body -->
+<div class="modal hide fade showReplyModal" id="showReplyModal"  tabindex="-1" role="dialog" aria-labelledby="showReplies" aria-hidden="true">
+	<div class="modal-body"></div>
+</div>
+		
 <div class="row-fluid rounded" style="background-color: white;">
     <div class="row-fluid">
 	    <div class="span4 module" style="border-width: 1px;">
@@ -16,7 +21,7 @@
 	         </ul>  
 	    </div>
 	    <div class="span8 module" style="height: 100%; padding-right: 10px;" >
-	       <h4 class="rounded-title">Tweets</h4>
+	       <h4 class="rounded-title">Tweets</h4>	       
 	        #{if itemList.size() == 0}
 	            <div class="alert alert-error">We could not find any tweet yet</div>
 	        #{/if}
@@ -31,7 +36,7 @@
 	        	 		   </div>
 	        	 		   <div>
 	        	 		       <div style="float:left">
-	        	 		           <a class="btn btn-link btn-small">View Replies</a>
+	        	 		       		<button id="viewReplyBtn" type="button" data-toggle="modal" data-keyboard="true" data-target="#showReplyModal" href="@{Application.showReplies}">View Replies</button>
 	        	 		       </div>
 	        	 		       <div style="text-align: right;">
                                     <button class="btn btn-success btn-small">Reply</button>

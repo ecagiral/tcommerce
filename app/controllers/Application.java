@@ -233,4 +233,8 @@ public class Application extends Controller {
 			render(error);
 		}
 	}
+	
+	public static void showReplies(Long tweetid){
+	    renderTemplate("tags/showReplies.html");
+	}
 }
