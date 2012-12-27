@@ -13,6 +13,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.hibernate.exception.ConstraintViolationException;
 
 import play.Logger;
+import play.Play;
 
 import jobs.OAuthSettings;
 import twitter4j.IDs;
@@ -153,8 +154,10 @@ public class TwitterProxyImpl implements TwitterProxy {
 	@Override
 	public void reply(Reply reply){
 		try {
-			Status status = twitter.updateStatus(new StatusUpdate(reply.tweet).inReplyToStatusId(reply.source.tweetId));
-			reply.tweetId = status.getId();
+			if(!Play.configuration.get("application.mode").equals("dev")){
+				Status status = twitter.updateStatus(new StatusUpdate(reply.tweet).inReplyToStatusId(reply.source.tweetId));
+				reply.tweetId = status.getId();
+			}
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		} 

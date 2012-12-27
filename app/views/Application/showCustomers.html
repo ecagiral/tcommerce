@@ -45,7 +45,7 @@
                                     <a class="btn btn-info btn-small" href="https://twitter.com/${tweet.owner.screenName}/status/${tweet.tweetId}" target="_blank">Show on Twitter</a>
                                </div>
 	        	 		   </div>
-	        	 		   <div id="replyList_${tweet.id}" style="display: none; margin-top: 10px; margin-left: 120px;">
+	        	 		   <div id="replyList_${tweet.id}" class="replyList" style="display: none; margin-top: 10px; margin-left: 40px; margin-right: 5px;">
 	        	 		   		#{list tweet.replyList, as:'reply'}
 	        	 		   			<div>
 	        	 		   				${reply.tweet}

@@ -137,11 +137,11 @@ function sendReply(){
 	var text = $('#replyTweetTextArea').val();
 	var tweetId = $("#replyTweetModal_tweetId").val();
 	$.postJSON("/application/replyTweet",{tweetId: tweetId, text: text}, sendReply_CallBack);
-	$("#replyTweetModalHeader").modal("hide");
+	$("#replyTweetModal").modal("hide");
 }
 
 function sendReply_CallBack(data){
-	
+	showHideReplies(data.sourceId);
 }
 
 

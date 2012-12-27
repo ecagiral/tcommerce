@@ -292,3 +292,7 @@ s {
 	list-style: none;
 	
 }
+
+.replyList div:nth-of-type(odd) {
+  background-color:#F9F9F9;
+}

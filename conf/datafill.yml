@@ -21,6 +21,14 @@ User(kutyar):
     fullName: "Kutyar Oztas"
     adsTweetLevel: NONE
     
+User(MerveMercan10):
+    twitterId: 1039687974
+    screenName: "MerveMercan10"
+    picture: "http://a0.twimg.com/sticky/default_profile_images/default_profile_3_normal.png"
+    fullName: "Merve Mercan"
+    adsTweetLevel: NONE
+    
+    
 SearchKey(new_guitar):
     keyName: "need new guitar"
 
@@ -50,20 +58,21 @@ Item(item2):
 Item(item3):
     description: "i am selling my car"
     picture: "http://image.motortrend.com/f/oftheyear/car/1301_2013_motor_trend_car_of_the_year_tesla_model_s/41007734+w644+h0/2013-Tesla-Model-S-front-1.jpg"
-    owner: engin
+    owner: MerveMercan10
     searchKey: [new_car]    
     
 Item(item4):
     description: "i am selling my house"
     picture: "http://www.plu.edu/~allenka/img/House_Front.jpg"
-    owner: engin
+    owner: MerveMercan10
     searchKey: [new_house]
 
 Item(item5):
     description: "i am selling my piano"
     picture: "http://www.steinway.com/img/hero_boston.png"
-    owner: engin
+    owner: MerveMercan10
     searchKey: [new_piano]
+
 
     
 Tweet(fake1):
@@ -89,4 +98,23 @@ Tweet(fake3):
     item: item3
     responded: false
     created: "2010-02-02"  
+
+Reply(reply1):
+    tweetId: 284315428308791296
+    tweet: "@SNSD_TY_Sk hello world"
+    source: fake3    
     
+Reply(reply2):
+    tweetId: 284315428308791297
+    tweet: "@SNSD_TY_Sk hello world test2"
+    source: fake3
+
+Reply(reply3):
+    tweetId: 284315428308791298
+    tweet: "@SNSD_TY_Sk hello world test3"
+    source: fake3
+    
+Reply(reply4):
+    tweetId: 284315428308791299
+    tweet: "@SNSD_TY_Sk hello world test4"
+    source: fake3
