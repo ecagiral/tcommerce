@@ -3,6 +3,8 @@ package controllers;
 import play.*;
 import play.cache.Cache;
 import play.mvc.*;
+import twitter.TwitterProxy;
+import twitter.TwitterProxyFactory;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import util.FileUtils;
@@ -236,5 +238,26 @@ public class Application extends Controller {
 	
 	public static void showReplies(Long tweetid){
 	    renderTemplate("tags/showReplies.html");
+	}
+	
+	public static void replyTweet(Long tweetId, String text){
+		Long userId = Cache.get(session.getId(), Long.class);
+		if(userId != null){
+			User user = User.findById(userId);
+			Tweet tweet = Tweet.findByTwitterId(tweetId);
+			Reply reply = new Reply();
+			reply.source = tweet;
+			reply.tweet = text;
+			reply.save();
+			tweet.save();
+			TwitterProxy proxy = TwitterProxyFactory.newInstance(user);
+			proxy.reply(reply);
+			renderJSON(new ReplyJson(reply));
+		}
+		else{
+			
+		}
+		
+		
 	}
 }

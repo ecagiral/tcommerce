@@ -19,11 +19,14 @@ import twitter4j.IDs;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import models.Item;
+import models.Reply;
 import models.SearchKey;
 import models.Tweet;
 import models.User;
@@ -41,10 +44,6 @@ public class TwitterProxyImpl implements TwitterProxy {
 				OAuthSettings.getConsumerSecret());
 		twitter.setOAuthAccessToken(new AccessToken(user.authToken,
 				user.authTokenSecret));
-	}
-
-	public void reply(long tweetId, String message) {
-
 	}
 
 	public void search(SearchKey searchKey) {
@@ -149,5 +148,15 @@ public class TwitterProxyImpl implements TwitterProxy {
 			u.save();
 			
 		}
+	}
+
+	@Override
+	public void reply(Reply reply){
+		try {
+			Status status = twitter.updateStatus(new StatusUpdate(reply.tweet).inReplyToStatusId(reply.source.tweetId));
+			reply.tweetId = status.getId();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		} 
 	}
 }

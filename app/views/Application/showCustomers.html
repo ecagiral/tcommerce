@@ -36,14 +36,22 @@
 	        	 		   </div>
 	        	 		   <div>
 	        	 		       <div style="float:left">
-	        	 		       		<button id="viewReplyBtn" type="button" data-toggle="modal" data-keyboard="true" data-target="#showReplyModal" href="@{Application.showReplies}">View Replies</button>
+	        	 		       		#{if tweet.replyList.size() > 0}
+	        	 		       		<button class="btn btn-link" id="viewReplyBtn" type="button" href="@{Application.showReplies}" onclick="showHideReplies(${tweet.id});"><span id="replyStateTriange_${tweet.id}">&#9658;</span> View Replies (${tweet.replyList.size()})</button>
+	        	 		      		#{/if}
 	        	 		       </div>
 	        	 		       <div style="text-align: right;">
-                                    <button class="btn btn-success btn-small">Reply</button>
+                                    <button class="btn btn-success btn-small" onclick="openReplyTweetDialog('${tweet.tweetId}', '${tweet.owner.screenName}', '${tweet.owner.id}');">Reply</button>
                                     <a class="btn btn-info btn-small" href="https://twitter.com/${tweet.owner.screenName}/status/${tweet.tweetId}" target="_blank">Show on Twitter</a>
                                </div>
 	        	 		   </div>
-	        	 		   
+	        	 		   <div id="replyList_${tweet.id}" style="display: none; margin-top: 10px; margin-left: 120px;">
+	        	 		   		#{list tweet.replyList, as:'reply'}
+	        	 		   			<div>
+	        	 		   				${reply.tweet}
+	        	 		   			</div>
+	        	 		   		#{/list}
+	        	 		   </div>
 	        	 		</div>
 	        	 	#{/list}
 	        	 </div>
@@ -59,10 +67,12 @@
 	</div>
 	<div>
 	    <div style="float:left">
-	        <a class="btn btn-link btn-small">View Replies</a>
+			<# if( tweet.replyCount > 0 ){ #>
+	        	<a class="btn btn-link btn-small">&#9654; View Replies</a>
+			<# } #>
 	    </div>
 	    <div style="text-align: right;">
-	         <button class="btn btn-success btn-small">Reply</button>
+	         <button class="btn btn-success btn-small" onclick="openReplyTweetDialog('<#=tweet.tweetId#>','<#=tweet.ownerScreenName#>','<#=tweet.ownerId#>');">Reply</button>
 	         <a class="btn btn-info btn-small" href="https://twitter.com/<#=tweet.ownerScreenName#>/status/<#=tweet.tweetId#>" target="_blank">Show on Twitter</a>
 	    </div>
 	</div>
@@ -72,3 +82,5 @@
 <script id="noTweetTemplate" type="text/html">
     <div class="alert alert-error" style="margin-bottom: 0px; text-align: center;">We could not find any tweet yet</div>
 </script>
+
+#{replyTweet /}

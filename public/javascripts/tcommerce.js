@@ -133,5 +133,54 @@ function showProductTweets(productId, current){
 	
 }
 
+function sendReply(){
+	var text = $('#replyTweetTextArea').val();
+	var tweetId = $("#replyTweetModal_tweetId").val();
+	$.postJSON("/application/replyTweet",{tweetId: tweetId, text: text}, sendReply_CallBack);
+	$("#replyTweetModalHeader").modal("hide");
+}
 
+function sendReply_CallBack(data){
+	
+}
+
+
+function openReplyTweetDialog(tweetId, screenName, userId){
+	var limit = 120;
+	$("#replyTweetModalHeader").html("Reply to <a href=\"/profile/"+userId+"\" target=\"_blank\">@" + screenName + "</a>" )
+	$('#replyTweetModal').modal();
+	var twScreenName ="@"+screenName + " ";
+	$('#replyTweetTextArea').text(twScreenName);
+	$('#replyTweetModal_tweetId').val(tweetId);
+	$("#tweetLengthLabel").html(limit - twScreenName.length + "/120 characters left");
+	$('#replyTweetTextArea').keyup(limitInput);
+	$('#replyTweetTextArea').bind('paste', limitInput);
+}
+
+function limitInput(){
+	var limit = 120;
+	if($(this).val().length > 120){
+        $(this).val($(this).val().substr(0, limit));
+    }
+    $("#tweetLengthLabel").html(limit - $(this).val().length + "/120 characters");
+    if(limit - $(this).val().length < 11){
+    	$("#tweetLengthLabel").css('color', 'red');
+    }
+    else{
+    	$("#tweetLengthLabel").css('color', 'black');
+    }
+}
+
+function showHideReplies(divId){
+	if( $('#replyList_'+divId).is(':hidden') ) {		
+		$('#replyList_'+divId).show();
+		$("#replyStateTriange_" + divId).html("&#9660;");
+		
+	}
+	else {
+		$('#replyList_'+divId).hide();
+		$("#replyStateTriange_" + divId).html("&#9654;");
+	}
+
+}
 
