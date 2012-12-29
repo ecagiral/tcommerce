@@ -30,57 +30,58 @@ User(MerveMercan10):
     
     
 SearchKey(new_guitar):
-    keyName: "need new guitar"
+    keyName: need new guitar
 
 SearchKey(new_bicycle):
-    keyName: "new bicycle"
+    keyName: new bicycle
     
 SearchKey(new_house):
-    keyName: "new house"
+    keyName: new house
 
 SearchKey(new_car):
-    keyName: "new car"
+    keyName: new car
 
 SearchKey(new_piano):
-    keyName: "new piano"
+    keyName: new piano
     
 SearchKey(vintage_table):
-    keyName: "vintage table"
+    keyName: vintage table
 
 Item(item1):
     description: "selling bike"
     picture: "http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg"
     owner: erman
-    searchKey: [new_guitar]
+    searchKeys: [new_guitar]
     
 Item(item2):
     description: "i am selling my guitar"
     picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
     owner: engin
-    searchKey: [new_bicycle]
+    searchKeys: [new_bicycle]
+    
 Item(item3):
     description: "i am selling my car"
     picture: "http://image.motortrend.com/f/oftheyear/car/1301_2013_motor_trend_car_of_the_year_tesla_model_s/41007734+w644+h0/2013-Tesla-Model-S-front-1.jpg"
     owner: MerveMercan10
-    searchKey: [new_car]    
+    searchKeys: [new_car]    
     
 Item(item4):
     description: "i am selling my house"
     picture: "http://www.plu.edu/~allenka/img/House_Front.jpg"
     owner: MerveMercan10
-    searchKey: [new_house]
+    searchKeys: [new_house]
 
 Item(item5):
     description: "i am selling my piano"
     picture: "http://www.steinway.com/img/hero_boston.png"
     owner: MerveMercan10
-    searchKey: [new_piano]
+    searchKeys: [new_piano]
 
 Item(item6):
     description: "i am selling my vintage table from world war 2"
     picture: "http://photos.weddingbycolor-nocookie.com/p000010204-m122409-p-photo-321519/Red-Ask-a-Question-Vintage-Table.jpg"
     owner: erman
-    searchKey: [vintage_table]
+    searchKeys: [vintage_table]
     
 Tweet(fake1):
     tweetId: 274527182267748352
