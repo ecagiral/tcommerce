@@ -53,7 +53,7 @@ public class Item extends Model{
 	@OneToMany(mappedBy="item")
 	public List<Visitor> visitors;
 	
-	public String shortenLink;
+	public String shortLink;
 	
 	public Item(String description, String picture, User owner){
 		this.description = description;

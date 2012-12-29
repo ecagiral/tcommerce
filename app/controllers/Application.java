@@ -8,6 +8,7 @@ import twitter.TwitterProxyFactory;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import util.FileUtils;
+import util.LinkShortener;
 
 import java.io.File;
 import java.io.FileReader;
@@ -74,7 +75,14 @@ public class Application extends Controller {
 			e.printStackTrace();
 		}
 		fullUrl = request.current().getBase() + "/image/" + fileName;
-		new Item(description, fullUrl, user).save();
+		Item item = new Item(description, fullUrl, user).save();
+		try{
+			String shortLink = LinkShortener.shorten(Play.configuration.getProperty("application.baseUrl")+"/item/"+item.id);
+			item.shortLink = shortLink == null ? Play.configuration.getProperty("application.baseUrl")+"/item/"+item.id : shortLink;
+		}catch (IOException e) {
+			item.shortLink = Play.configuration.getProperty("application.baseUrl")+"/item/"+item.id;
+		}
+		item.save();
 		index();
 	}
 
