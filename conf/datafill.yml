@@ -49,32 +49,35 @@ Item(item1):
     picture: "http://ecx.images-amazon.com/images/I/31nc9OHB7OL._SL500_AA300_.jpg"
     owner: erman
     searchKey: [new_guitar]
+    shortLink: "http://announce4.me/item/1"
     
 Item(item2):
     description: "i am selling my guitar"
     picture: "http://ecx.images-amazon.com/images/I/31be5LRX8-L.jpg"
     owner: engin
     searchKey: [new_bicycle]
+    shortLink: "http://announce4.me/item/2"
 Item(item3):
     description: "i am selling my car"
     picture: "http://image.motortrend.com/f/oftheyear/car/1301_2013_motor_trend_car_of_the_year_tesla_model_s/41007734+w644+h0/2013-Tesla-Model-S-front-1.jpg"
     owner: MerveMercan10
-    searchKey: [new_car]    
+    searchKey: [new_car]
+    shortLink: "http://announce4.me/item/3"    
     
 Item(item4):
     description: "i am selling my house"
     picture: "http://www.plu.edu/~allenka/img/House_Front.jpg"
     owner: MerveMercan10
     searchKey: [new_house]
+    shortLink: "http://announce4.me/item/4"
 
 Item(item5):
     description: "i am selling my piano"
     picture: "http://www.steinway.com/img/hero_boston.png"
     owner: MerveMercan10
     searchKey: [new_piano]
+    shortLink: "http://announce4.me/item/5"
 
-
-    
 Tweet(fake1):
     tweetId: 274527182267748352
     tweet: "i need a new guitar. or an electric one. whichever works."
