@@ -30,19 +30,22 @@ User(MerveMercan10):
     
     
 SearchKey(new_guitar):
-    keyName: "need new guitar"
+    keyName: need new guitar
 
 SearchKey(new_bicycle):
-    keyName: "new bicycle"
+    keyName: new bicycle
     
 SearchKey(new_house):
-    keyName: "new house"
+    keyName: new house
 
 SearchKey(new_car):
-    keyName: "new car"
+    keyName: new car
 
 SearchKey(new_piano):
-    keyName: "new piano"
+    keyName: new piano
+    
+SearchKey(vintage_table):
+    keyName: vintage table
 
 Item(item1):
     description: "selling bike"
@@ -57,13 +60,14 @@ Item(item2):
     owner: engin
     searchKey: [new_bicycle]
     shortLink: "http://announce4.me/item/2"
+    
 Item(item3):
     description: "i am selling my car"
     picture: "http://image.motortrend.com/f/oftheyear/car/1301_2013_motor_trend_car_of_the_year_tesla_model_s/41007734+w644+h0/2013-Tesla-Model-S-front-1.jpg"
     owner: MerveMercan10
     searchKey: [new_car]
     shortLink: "http://announce4.me/item/3"    
-    
+  
 Item(item4):
     description: "i am selling my house"
     picture: "http://www.plu.edu/~allenka/img/House_Front.jpg"
@@ -77,6 +81,12 @@ Item(item5):
     owner: MerveMercan10
     searchKey: [new_piano]
     shortLink: "http://announce4.me/item/5"
+    
+Item(item6):
+    description: "i am selling my vintage table from world war 2"
+    picture: "http://photos.weddingbycolor-nocookie.com/p000010204-m122409-p-photo-321519/Red-Ask-a-Question-Vintage-Table.jpg"
+    owner: erman
+    searchKeys: [vintage_table]
 
 Tweet(fake1):
     tweetId: 274527182267748352

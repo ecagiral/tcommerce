@@ -41,52 +41,58 @@
 		</div>
 
 </div>
-<div class="span4">
-	<div style="text-align: center"><h2>Comments</h2></div>
-	<div class = "commentContainer">
-		#{list items:product.comments, as: 'comment'}
-			<div class = "commentElement" style="margin-bottom:10px;position:relative">
-				<a href = "@{Application.profile(comment.owner.id)}"><img src="${comment.owner.picture}"></a> 
-				<span>${comment.commentText}</span>
-				<div style="position:absolute;right:20px;bottom:0px">${comment.getTime()}</div>
-			</div>
-			
-		#{/list}
-		#{if product.comments.size() == 0}
-		<div style="text-align: center"><h4>No comment yet</h4></div>
-		#{/if}
-	</div>
-	#{if user}
-	<div>
-		<img width="48px" height="48px" src="${user.picture}">
-		<textarea id="commentText" rows="2">Add comment</textarea>
-		<div style="clear:both;"></div>
-		<input style="margin-left:50px" value="Comment" type="button" class="addCommentButton" data-item = "${product.id}" onclick="addComment(${product.id})"/>
-	</div>
-	#{/if}
-	#{else}
-	<div style="text-align: center;margin-top:50px;color:red"><h4>Login to Comment</h4></div>
-	#{/else}
+<div class="span8">
+	<ul id="itemDetailTab" class="nav nav-pills" style="margin-bottom: 10px;">
+		<li class="active"><a href="#comments" data-toggle="tab" id="commentsTab">Comments</a></li>
+		<li class=""><a href="#visits" data-toggle="tab" id="visitsTab">Visits</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="comments" class="tab-pane active" style="overflow: hidden;">
+			<div class = "commentContainer">
+				#{list items:product.comments, as: 'comment'}
+					<div class = "commentElement" style="margin-bottom:10px;position:relative">
+						<a href = "@{Application.profile(comment.owner.id)}"><img src="${comment.owner.picture}"></a> 
+						<span>${comment.commentText}</span>
+						#{if comment.owner == user}
+						<a class = "btn btn-danger deleteComment" href = "@{Application.deleteComment(comment.id)}" style="position:absolute;top:0px;right:0px">X</a>
+						#{/if}
+						<div style="position:absolute;bottom:0px;right:0px">${comment.getTime()}</div>
+					</div>
+					
+				#{/list}
+				#{if product.comments.size() == 0}
+				<h4 id ="noCommentBox" >No comment yet</h4>
+				#{/if}
 
-</div>
-<div class="span2">
-	<div style="text-align: center"><h2>Visits</h2></div>
-	<div class = "visitorContainer">
-		#{list items:product.getVisitors(), as: 'visitor'}
-			<div class = "commentElement" style="margin-bottom:10px;position:relative">
-				<a href = "@{Application.profile(visitor.id)}"><img src="${visitor.picture}"></a> 
-				<span>${visitor.screenName}</span>
-				<div style="position:absolute;right:0px;bottom:0px">${visitor.visitCount(product)} visits. Latest ${visitor.latestVisit(product)}</div>
 			</div>
-			
-		#{/list}
-		#{if product.getVisitors().size() == 0}
-		<div style="text-align: center"><h4>No visit yet</h4></div>
-		#{/if}
-	</div>
-</div>
-
-<div class="span2">
-</div>
+			#{if user}
+			<div>
+				<img width="48px" height="48px" src="${user.picture}">
+				<textarea id="commentText" rows="2" placeholder="Add comment"></textarea>
+				<div style="clear:both;"></div>
+				<input style="margin-left:50px" value="Comment" type="button" class="addCommentButton" data-item = "${product.id}" onclick="addComment(${product.id})"/>
+			</div>
+			#{/if}
+			#{else}
+			<div style="text-align: center;margin-top:50px;color:red"><h4>Login to Comment</h4></div>
+			#{/else}
+		</div>
+		<div id="visits" class="tab-pane" style="overflow: hidden;">
+			<div class = "visitorContainer">
+				#{list items:product.getVisitors(), as: 'visitor'}
+					<div class = "commentElement" style="margin-bottom:10px;position:relative">
+						<a href = "@{Application.profile(visitor.id)}"><img src="${visitor.picture}"></a> 
+						<span>${visitor.screenName}</span>
+						<div style="position:absolute;right:0px;bottom:0px">${visitor.visitCount(product)} visits. Latest ${visitor.latestVisit(product)}</div>
+					</div>
+					
+				#{/list}
+				#{if product.getVisitors().size() == 0}
+				<div style="text-align: center"><h4>No visit yet</h4></div>
+				#{/if}
+			</div>
+		</div>
+	</div><!-- end tab content -->
+</div><!-- end span8 -->
 </div>
 #{commentTemplate /}

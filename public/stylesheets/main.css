@@ -296,3 +296,11 @@ s {
 .replyList div:nth-of-type(odd) {
   background-color:#F9F9F9;
 }
+
+.commentElement .deleteComment{
+	visibility: hidden;
+}
+
+.commentElement:hover .deleteComment{
+	visibility: visible;
+}
