@@ -3,7 +3,7 @@ User(engin):
     screenName: "eguller"
     picture: "https://si0.twimg.com/profile_images/1763539464/eguller_reasonably_small.jpeg"
     fullName: "Engin Guller"
-    adsTweetLevel: FIRST
+    adsTweetLevel: NONE
     authToken: "392768645-qcQFDPwP7043rYyTpcYmZDs6rmVOdZvMH6dSccDh"
     authTokenSecret: "icacvgwvTqpikhAGaCU3VTrd9JcolZokJ5YK5jw3n4"
 
