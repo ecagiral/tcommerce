@@ -1,23 +1,9 @@
-<div class="navbar">
+<div class="navbar" style="margin-top:33px">
 	<div class="navbar-inner">
 
 		<!-- Your site name for the upper left corner of the site -->
-		<a class="brand" href="@{Application.index()}">t-commerce</a>
+		
 		<ul class="nav" id="topNav">
-			<li><a href="/">Home</a></li> 
-			#{if _user}
-				<li><a onclick="showAddProductModal();" style="cursor: pointer;">Add Product</a></li> 
-				<li><a href="@{Application.showCustomers()}">Customers</a></li>
-			#{/if}
-		</ul>
-		<form action="@{Application.search()}" class="navbar-search pull-center" method="GET" style="margin-left: 15%;">
-		<div class="input-append">
-			<input type="text" class="search-query" placeholder="Search"
-				name="query"> <span class="add-on"><i
-				class="icon-search"> </i> </span>
-		</div>
-		</form>
-		<ul class="nav pull-right">
 			#{if _user}
 			<li class="divider-vertical"></li>
 			<li class="dropdown"><a class="dropdown-toggle" href="#"
@@ -37,6 +23,21 @@
 					</a>
 				</li>
 			#{/else}
+			<li><a href="/">Home</a></li> 
+			#{if _user}
+				<li><a onclick="showAddProductModal();" style="cursor: pointer;">Add Product</a></li> 
+				<li><a href="@{Application.showCustomers()}">Customers</a></li>
+			#{/if}
 		</ul>
+		<form action="@{Application.search()}" class="navbar-search pull-center" method="GET" style="margin-left: 15%;">
+		<div class="input-append">
+			<input type="text" class="search-query" placeholder="Search"
+				name="query"> <span class="add-on"><i
+				class="icon-search"> </i> </span>
+		</div>
+		</form>
 	</div>
 </div>
+<a href="@{Application.index()}">
+	<img src = "/public/images/logo_bird.png" style="position:absolute;height:150px;right:0;top:-25px">
+</a>

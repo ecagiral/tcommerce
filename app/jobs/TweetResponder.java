@@ -51,7 +51,7 @@ public class TweetResponder extends Job {
 		int textSize = 140 - defaultSize;
 		String text = tweet.item.description.length() < textSize ? tweet.item.description : tweet.item.description.substring(0, textSize);
 		StringBuilder message = new StringBuilder();
-		message.append("@").append(tweet.owner.screenName).append(" ").append(text).append(tweet.item.shortLink);
+		message.append("@").append(tweet.owner.screenName).append(" ").append(text).append(" ").append(tweet.item.shortLink);
 		return message.toString();
 	}
 }
