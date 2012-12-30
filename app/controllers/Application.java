@@ -47,9 +47,6 @@ public class Application extends Controller {
 		if (user != null && product != null) {
 			new Visitor(product, user).save();
 		}
-		for (Comment comment : product.comments) {
-			Logger.info(comment.commentText);
-		}
 		render(product);
 	}
 
@@ -264,8 +261,24 @@ public class Application extends Controller {
 		}
 		else{
 			
-		}
+		}		
 		
-		
+	}
+	
+	public static void deleteComment(Long commentId){
+	    Comment comment = Comment.findById(commentId);
+	    if(comment!=null){
+	        Item product = comment.item;
+	        User user = Auth.getCurrentUser();
+	        if(comment.owner == user){
+	            comment.delete();
+	            product.refresh();
+	            renderTemplate("Application/showItem.html",product,user);
+	        }else{
+	            //TODO:you are not authorized
+	            renderTemplate("Application/showItem.html",product,user);
+	        } 
+	    }
+	    index();
 	}
 }
