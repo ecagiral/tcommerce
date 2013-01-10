@@ -26,7 +26,6 @@
 			<li><a href="/">Home</a></li> 
 			#{if _user}
 				<li><a onclick="showAddProductModal();" style="cursor: pointer;">Add Product</a></li> 
-				<li><a href="@{Application.showCustomers()}">Customers</a></li>
 			#{/if}
 		</ul>
 		<form action="@{Application.search()}" class="navbar-search pull-center" method="GET" style="margin-left: 15%;">
