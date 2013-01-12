@@ -46,6 +46,9 @@ SearchKey(new_piano):
     
 SearchKey(vintage_table):
     keyName: vintage table
+    
+SearchKey(startup_turkey):
+    keyName: startup
 
 Item(item1):
     description: "i am selling my bike. It is a 40 years old without any major problem."
@@ -87,6 +90,12 @@ Item(item6):
     picture: "http://photos.weddingbycolor-nocookie.com/p000010204-m122409-p-photo-321519/Red-Ask-a-Question-Vintage-Table.jpg"
     owner: erman
     searchKeys: [vintage_table]
+    
+Item(item6):
+    description: "Very best of Turkey's Internet startups and Investors are gathering at Startup Turkey. Leading event where startup founders, business angels, investors network with each other establish new business relationships."
+    owner: erman
+    picture: "/public/images/etohum1.jpg"
+    searchKeys: [startup_turkey]
 
 Tweet(fake1):
     tweetId: 274527182267748352

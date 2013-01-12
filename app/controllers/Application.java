@@ -252,7 +252,7 @@ public class Application extends Controller {
 			Tweet tweet = Tweet.findByTwitterId(tweetId);
 			Reply reply = new Reply();
 			reply.source = tweet;
-			reply.tweet = text;
+			reply.tweet = text + " @an4me";
 			reply.save();
 			tweet.save();
 			TwitterProxy proxy = TwitterProxyFactory.newInstance(user);

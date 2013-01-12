@@ -148,23 +148,23 @@ function sendReply_CallBack(data){
 
 
 function openReplyTweetDialog(tweetId, screenName, userId){
-	var limit = 120;
+	var limit = 110;
 	$("#replyTweetModalHeader").html("Reply to <a href=\"/profile/"+userId+"\" target=\"_blank\">@" + screenName + "</a>" )
 	$('#replyTweetModal').modal();
 	var twScreenName ="@"+screenName + " ";
 	$('#replyTweetTextArea').text(twScreenName);
 	$('#replyTweetModal_tweetId').val(tweetId);
-	$("#tweetLengthLabel").html(limit - twScreenName.length + "/120 characters left");
+	$("#tweetLengthLabel").html(limit - twScreenName.length + "/110 characters left");
 	$('#replyTweetTextArea').keyup(limitInput);
 	$('#replyTweetTextArea').bind('paste', limitInput);
 }
 
 function limitInput(){
-	var limit = 120;
-	if($(this).val().length > 120){
+	var limit = 110;
+	if($(this).val().length > 110){
         $(this).val($(this).val().substr(0, limit));
     }
-    $("#tweetLengthLabel").html(limit - $(this).val().length + "/120 characters");
+    $("#tweetLengthLabel").html(limit - $(this).val().length + "/110 characters");
     if(limit - $(this).val().length < 11){
     	$("#tweetLengthLabel").css('color', 'red');
     }
